@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AET Technologie — Formations web & développement d'applications à Lomé</title>
+<meta name="description" content="AET Technologie forme aux métiers du web (HTML, CSS, JavaScript, Firebase, GitHub) et développe des applications sur mesure pour les entrepreneurs togolais. Formations en FCFA, paiement Flooz & T-Money.">
+<link rel="canonical" href="https://alban3886.github.io/aet-technologie/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#0B3D2E;
+    --forest-deep:#072A20;
+    --gold:#F2B705;
+    --clay:#B3212E;
+    --sand:#FAF6EC;
+    --ink:#17201C;
+    --sage:#6F9179;
+    --line: rgba(11,61,46,0.14);
+    --radius: 14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Sora', sans-serif;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  :focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,246,236,0.88);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 24px; max-width:1180px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-weight:800; font-size:1.15rem;}
+  .brand .mark{
+    width:36px;height:36px;border-radius:9px;
+    background:linear-gradient(155deg,var(--forest),var(--forest-deep));
+    display:flex;align-items:center;justify-content:center;
+    color:var(--gold); font-family:'Sora'; font-weight:800; font-size:1rem;
+    position:relative; overflow:hidden;
+  }
+  .brand .mark::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(100deg,transparent 40%, rgba(242,183,5,0.35) 50%, transparent 60%);
+    transform:translateX(-100%);
+    animation:sheen 5s ease-in-out infinite;
+  }
+  @keyframes sheen{ 0%,70%{transform:translateX(-120%);} 100%{transform:translateX(120%);} }
+  .navlinks{display:flex; gap:28px; font-size:0.95rem; font-weight:500;}
+  .navlinks a{text-decoration:none; opacity:0.78; transition:opacity .2s;}
+  .navlinks a:hover{opacity:1;}
+  .cta-btn{
+    background:var(--forest); color:var(--sand); border:none;
+    padding:11px 20px; border-radius:100px; font-weight:600; font-size:0.9rem;
+    cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s ease, background .2s;
+  }
+  .cta-btn:hover{transform:translateY(-1px); background:var(--forest-deep);}
+  .cta-gold{background:var(--gold); color:var(--forest-deep);}
+  .cta-gold:hover{background:#ffc61a;}
+  .menu-toggle{display:none; background:none; border:none; cursor:pointer;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:76px 24px 60px; max-width:1180px; margin:0 auto;
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono'; font-size:0.78rem; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--forest); background:rgba(11,61,46,0.08);
+    padding:6px 12px; border-radius:100px; margin-bottom:22px;
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%; background:var(--clay);}
+  .hero h1{
+    font-size:clamp(2.3rem, 4.4vw, 3.5rem);
+    line-height:1.06; font-weight:800;
+  }
+  .hero h1 em{
+    font-style:normal; color:var(--forest);
+    background:linear-gradient(180deg,transparent 62%, rgba(242,183,5,0.55) 62%);
+  }
+  .hero p.lead{
+    margin-top:22px; font-size:1.12rem; line-height:1.6; color:#3a463f; max-width:46ch;
+  }
+  .hero-ctas{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .hero-note{margin-top:20px; font-size:0.85rem; color:#5c6a61; display:flex; gap:8px; align-items:center;}
+
+  /* Terminal signature element */
+  .terminal{
+    background:var(--forest-deep); border-radius:16px; overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(7,42,32,0.5);
+    border:1px solid rgba(242,183,5,0.15);
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:8px; padding:12px 16px;
+    background:rgba(255,255,255,0.04); border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .terminal-bar span{width:10px;height:10px;border-radius:50%;}
+  .terminal-bar .r{background:#e0605a;} .terminal-bar .y{background:#e6b93a;} .terminal-bar .g{background:#4fae6c;}
+  .terminal-bar .label{margin-left:auto; font-family:'JetBrains Mono'; font-size:0.72rem; color:rgba(255,255,255,0.4);}
+  .terminal-body{padding:22px 20px 26px; font-family:'JetBrains Mono'; font-size:0.86rem; color:#d9e6dd; min-height:230px;}
+  .terminal-body .prompt{color:var(--gold);}
+  .terminal-body .out{color:#8fb99c;}
+  #typed-line::after{content:"▍"; color:var(--gold); animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .terminal-tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px;}
+  .terminal-tags span{
+    font-family:'JetBrains Mono'; font-size:0.72rem; padding:5px 10px; border-radius:6px;
+    background:rgba(242,183,5,0.12); color:var(--gold); border:1px solid rgba(242,183,5,0.25);
+  }
+
+  /* ---------- Marquee ---------- */
+  .marquee-wrap{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:#F2EDE0; overflow:hidden; padding:16px 0;}
+  .marquee{display:flex; gap:52px; white-space:nowrap; animation:scroll 26s linear infinite; width:max-content;}
+  .marquee span{font-family:'JetBrains Mono'; font-size:0.85rem; color:#5c6a61; letter-spacing:0.03em;}
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- Section shell ---------- */
+  section{padding:96px 24px;}
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head .eyebrow{margin-bottom:16px;}
+  .section-head h2{font-size:clamp(1.8rem,3vw,2.4rem); font-weight:800; line-height:1.15;}
+  .section-head p{margin-top:14px; color:#455049; font-size:1.02rem; line-height:1.6;}
+
+  /* ---------- Programmes ---------- */
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    padding:30px 26px; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .card:hover{transform:translateY(-4px); box-shadow:0 20px 40px -24px rgba(11,61,46,0.35);}
+  .card .icon{
+    width:46px;height:46px;border-radius:11px; display:flex; align-items:center; justify-content:center;
+    background:rgba(11,61,46,0.08); color:var(--forest); margin-bottom:20px;
+  }
+  .card h3{font-size:1.18rem; font-weight:700; margin-bottom:10px;}
+  .card p{color:#4a564e; font-size:0.94rem; line-height:1.6; margin:0 0 16px;}
+  .card ul{margin:0; padding-left:18px; color:#3f4a43; font-size:0.9rem; line-height:1.9;}
+  .card .price{
+    margin-top:18px; padding-top:16px; border-top:1px dashed var(--line);
+    font-family:'JetBrains Mono'; font-weight:600; color:var(--forest); font-size:0.95rem;
+  }
+
+  /* ---------- Parcours (numbered, real sequence) ---------- */
+  .path{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0; position:relative;
+  }
+  .path::before{
+    content:""; position:absolute; top:26px; left:6%; right:6%; height:2px;
+    background:repeating-linear-gradient(90deg, var(--sage) 0 10px, transparent 10px 18px);
+  }
+  .path-step{position:relative; padding:0 14px; text-align:left;}
+  .path-num{
+    width:52px;height:52px;border-radius:50%; background:var(--forest); color:var(--gold);
+    display:flex; align-items:center; justify-content:center; font-family:'Sora'; font-weight:800;
+    font-size:1.1rem; position:relative; z-index:2; margin-bottom:20px;
+  }
+  .path-step h3{font-size:1.02rem; font-weight:700; margin-bottom:8px;}
+  .path-step p{font-size:0.88rem; color:#4a564e; line-height:1.55; margin:0;}
+
+  /* ---------- Réalisations ---------- */
+  .grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:22px;}
+  .work-card{
+    background:linear-gradient(155deg,var(--forest),var(--forest-deep)); color:var(--sand);
+    border-radius:var(--radius); padding:30px 28px; position:relative; overflow:hidden;
+  }
+  .work-card::after{
+    content:""; position:absolute; right:-40px; bottom:-40px; width:160px; height:160px;
+    border-radius:50%; background:rgba(242,183,5,0.12);
+  }
+  .work-card .tag{font-family:'JetBrains Mono'; font-size:0.72rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.06em;}
+  .work-card h3{font-size:1.25rem; font-weight:700; margin:10px 0 12px;}
+  .work-card p{font-size:0.92rem; line-height:1.6; color:rgba(250,246,236,0.82); margin:0 0 18px; max-width:40ch;}
+  .work-card a{font-size:0.88rem; font-weight:600; text-decoration:none; color:var(--gold); display:inline-flex; align-items:center; gap:6px;}
+
+  /* ---------- Tarifs ---------- */
+  .pricing-note{
+    background:#F2EDE0; border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px 24px; margin-top:28px; display:flex; gap:14px; align-items:flex-start; font-size:0.92rem; color:#3f4a43;
+  }
+
+  /* ---------- Inscription / CTA final ---------- */
+  .cta-final{
+    background:var(--forest-deep); color:var(--sand); border-radius:20px;
+    padding:64px 48px; text-align:center; max-width:1180px; margin:0 auto 0;
+    position:relative; overflow:hidden;
+  }
+  .cta-final::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at 20% 20%, rgba(242,183,5,0.15), transparent 45%),
+               radial-gradient(circle at 85% 80%, rgba(179,33,46,0.18), transparent 45%);
+  }
+  .cta-final > *{position:relative; z-index:1;}
+  .cta-final h2{font-size:clamp(1.7rem,3vw,2.2rem); font-weight:800; max-width:24ch; margin:0 auto 16px;}
+  .cta-final p{color:rgba(250,246,236,0.78); max-width:48ch; margin:0 auto 30px; font-size:1rem; line-height:1.6;}
+
+  /* ---------- Footer ---------- */
+  footer{padding:60px 24px 34px; border-top:1px solid var(--line);}
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; margin-bottom:40px;}
+  .foot-brand{font-weight:800; font-family:'Sora'; font-size:1.05rem; margin-bottom:10px;}
+  .foot-grid p{font-size:0.88rem; color:#5c6a61; line-height:1.6; margin:0;}
+  .foot-grid h4{font-size:0.8rem; text-transform:uppercase; letter-spacing:0.05em; color:#5c6a61; margin-bottom:14px;}
+  .foot-grid a{display:block; font-size:0.9rem; color:#2c352f; text-decoration:none; margin-bottom:10px; opacity:0.85;}
+  .foot-grid a:hover{opacity:1; text-decoration:underline;}
+  .foot-bottom{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+    font-size:0.8rem; color:#5c6a61; padding-top:24px; border-top:1px solid var(--line);
+  }
+  .pay-badges{display:flex; gap:8px;}
+  .pay-badges span{
+    font-family:'JetBrains Mono'; font-size:0.68rem; padding:4px 9px; border-radius:6px;
+    background:#F2EDE0; border:1px solid var(--line);
+  }
+
+  /* ---------- Modal ---------- */
+  .modal-bg{
+    position:fixed; inset:0; background:rgba(7,42,32,0.55); backdrop-filter:blur(3px);
+    display:none; align-items:center; justify-content:center; z-index:100; padding:20px;
+  }
+  .modal-bg.open{display:flex;}
+  .modal{
+    background:var(--sand); border-radius:18px; max-width:440px; width:100%;
+    padding:34px 30px; position:relative;
+  }
+  .modal h3{font-size:1.3rem; font-weight:800; margin-bottom:6px;}
+  .modal p.sub{color:#4a564e; font-size:0.92rem; margin:0 0 22px;}
+  .modal label{font-size:0.82rem; font-weight:600; color:#2c352f; display:block; margin-bottom:6px;}
+  .modal input, .modal select{
+    width:100%; padding:11px 13px; border-radius:9px; border:1px solid var(--line);
+    background:#fff; font-family:'Work Sans'; font-size:0.92rem; margin-bottom:16px;
+  }
+  .modal-close{
+    position:absolute; top:18px; right:18px; background:none; border:none; cursor:pointer;
+    font-size:1.2rem; color:#5c6a61; line-height:1;
+  }
+  .modal-submit{width:100%; justify-content:center; font-size:0.95rem; padding:13px;}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 880px){
+    .navlinks{display:none;}
+    .menu-toggle{display:block;}
+    .hero{grid-template-columns:1fr; padding-top:48px;}
+    .grid-3{grid-template-columns:1fr;}
+    .grid-2{grid-template-columns:1fr;}
+    .path{grid-template-columns:1fr 1fr; gap:28px;}
+    .path::before{display:none;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    .cta-final{padding:48px 26px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <div class="brand">
+      <span class="mark">AE</span>
+      AET <span style="font-weight:400; opacity:.6; margin-left:2px;">Technologie</span>
+    </div>
+    <div class="navlinks">
+      <a href="#programmes">Formations</a>
+      <a href="#parcours">Parcours</a>
+      <a href="#realisations">Réalisations</a>
+      <a href="#tarifs">Tarifs</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="cta-btn cta-gold" onclick="openModal()">S'inscrire</button>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <span class="eyebrow"><span class="dot"></span> Lomé, Togo — Formation & développement</span>
+      <h1>Apprends à coder,<br><em>lance ton app</em>,<br>fais grandir ton business.</h1>
+      <p class="lead">AET Technologie forme les jeunes togolais aux métiers du web et développe des applications sur mesure — du premier cours HTML jusqu'à l'app publiée sur le Store.</p>
+      <div class="hero-ctas">
+        <button class="cta-btn cta-gold" onclick="openModal()">Rejoindre une formation</button>
+        <a class="cta-btn" href="#realisations" style="background:transparent; color:var(--forest); border:1.5px solid var(--forest);">Voir nos réalisations</a>
+      </div>
+      <div class="hero-note">💳 Paiement accepté en Flooz & T-Money · Tarifs en FCFA</div>
+    </div>
+
+    <div class="terminal" aria-hidden="true">
+      <div class="terminal-bar">
+        <span class="r"></span><span class="y"></span><span class="g"></span>
+        <span class="label">aet-formation.js</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> npm run apprendre</div>
+        <div class="out">&gt; Module 1 : HTML5 &amp; CSS3 ................ ✓</div>
+        <div class="out">&gt; Module 2 : JavaScript ................... ✓</div>
+        <div class="out">&gt; Module 3 : Firebase &amp; GitHub ........... ✓</div>
+        <div class="out">&gt; Module 4 : Déploiement en ligne ......... ✓</div>
+        <div style="margin-top:14px;"><span class="prompt">$</span> <span id="typed-line"></span></div>
+        <div class="terminal-tags">
+          <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Firebase</span><span>GitHub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee" id="marquee">
+      <span>✦ Formations certifiantes</span><span>✦ Suivi individuel</span><span>✦ Projets réels publiés en ligne</span><span>✦ Paiement Flooz & T-Money</span><span>✦ Accompagnement Google Play & Galaxy Store</span>
+    </div>
+  </div>
+
+  <!-- PROGRAMMES -->
+  <section id="programmes">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow"><span class="dot"></span> Nos programmes</span>
+        <h2>Trois façons de progresser avec AET</h2>
+        <p>Que tu démarres de zéro ou que tu aies déjà une idée d'application, nos programmes s'adaptent à ton niveau et à ton objectif business.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.6"/><path d="M8 9l3 3-3 3M13 15h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Formation Développement Web</h3>
+          <p>Le parcours complet pour créer et publier tes propres sites, de la structure à la mise en ligne.</p>
+          <ul>
+            <li>HTML5 & CSS3</li>
+            <li>JavaScript moderne</li>
+            <li>Firebase (base de données)</li>
+            <li>GitHub & déploiement</li>
+          </ul>
+          <div class="price">À partir de 25 000 FCFA</div>
+        </div>
+        <div class="card">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="6" y="3" width="12" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M10 18h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Développement sur mesure</h3>
+          <p>Tu as une idée d'application ou de boutique en ligne ? On la construit avec toi, de A à Z.</p>
+          <ul>
+            <li>Application web ou mobile</li>
+            <li>Connexion & base de données</li>
+            <li>Publication sur Store</li>
+            <li>Maintenance & évolutions</li>
+          </ul>
+          <div class="price">Devis personnalisé</div>
+        </div>
+        <div class="card">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12l4-8h10l4 8-9 9-9-9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Accompagnement business</h3>
+          <p>Publier une app ne suffit pas : on t'aide à la faire connaître et à structurer ton activité.</p>
+          <ul>
+            <li>Mise en ligne Store</li>
+            <li>Référencement Google</li>
+            <li>Stratégie WhatsApp & réseaux</li>
+            <li>Suivi mensuel</li>
+          </ul>
+          <div class="price">Sur abonnement</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARCOURS -->
+  <section id="parcours" style="background:#F2EDE0;">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow"><span class="dot"></span> Le parcours</span>
+        <h2>De la première ligne de code à l'app publiée</h2>
+        <p>Un déroulé concret, dans l'ordre où tu vas réellement l'expérimenter.</p>
+      </div>
+      <div class="path">
+        <div class="path-step">
+          <div class="path-num">01</div>
+          <h3>Apprendre</h3>
+          <p>Bases solides en HTML, CSS et JavaScript, avec des exercices sur des cas togolais concrets.</p>
+        </div>
+        <div class="path-step">
+          <div class="path-num">02</div>
+          <h3>Pratiquer</h3>
+          <p>Tu construis un vrai projet — pas un exercice jetable — que tu pourras montrer ensuite.</p>
+        </div>
+        <div class="path-step">
+          <div class="path-num">03</div>
+          <h3>Déployer</h3>
+          <p>Mise en ligne sur GitHub Pages ou publication de l'APK, avec accompagnement pas à pas.</p>
+        </div>
+        <div class="path-step">
+          <div class="path-num">04</div>
+          <h3>Lancer</h3>
+          <p>Référencement Google, partage WhatsApp, premiers utilisateurs — ton projet devient réel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REALISATIONS -->
+  <section id="realisations">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow"><span class="dot"></span> Réalisations AET</span>
+        <h2>Des projets déjà en ligne</h2>
+        <p>Conçus, développés et déployés par AET Technologie — la preuve que la méthode fonctionne.</p>
+      </div>
+      <div class="grid-2">
+        <div class="work-card">
+          <span class="tag">Application financière</span>
+          <h3>AET MonBudget</h3>
+          <p>Gestion de budget personnel pensée pour les salariés togolais : revenus, dépenses, épargne, multi-devises.</p>
+          <a href="https://alban3886.github.io/togosheets-pro/" target="_blank" rel="noopener">Voir le projet →</a>
+        </div>
+        <div class="work-card">
+          <span class="tag">Marketplace</span>
+          <h3>TogoSheets Pro</h3>
+          <p>Une vitrine publique regroupant les boutiques en ligne créées par les entrepreneurs formés chez AET.</p>
+          <a href="https://alban3886.github.io/togosheets-pro/public.html" target="_blank" rel="noopener">Voir la boutique →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARIFS -->
+  <section id="tarifs" style="background:#F2EDE0;">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow"><span class="dot"></span> Tarifs</span>
+        <h2>Des prix pensés pour le marché togolais</h2>
+        <p>Paiement en espèces, Flooz ou T-Money — sans frais cachés.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Découverte</h3>
+          <p>Les fondamentaux du web, en groupe.</p>
+          <div class="price" style="border-top:none; padding-top:0; font-size:1.4rem;">25 000 FCFA</div>
+          <ul><li>4 modules essentiels</li><li>Support de cours inclus</li><li>Groupe de 8 à 12 personnes</li></ul>
+        </div>
+        <div class="card" style="border-color:var(--gold); border-width:2px;">
+          <h3>Intensif</h3>
+          <p>Formation individuelle avec projet final publié.</p>
+          <div class="price" style="border-top:none; padding-top:0; font-size:1.4rem;">60 000 FCFA</div>
+          <ul><li>Suivi individuel</li><li>Projet réel déployé en ligne</li><li>Aide à la publication Store</li></ul>
+        </div>
+        <div class="card">
+          <h3>Sur mesure</h3>
+          <p>Développement complet de ton application.</p>
+          <div class="price" style="border-top:none; padding-top:0; font-size:1.4rem;">Devis</div>
+          <ul><li>Cahier des charges</li><li>Développement & tests</li><li>Mise en ligne & maintenance</li></ul>
+        </div>
+      </div>
+      <div class="pricing-note">
+        💬 Les tarifs peuvent varier selon la formule choisie et le nombre de participants. Contacte-nous sur WhatsApp pour un devis précis.
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section>
+    <div class="cta-final">
+      <h2>Prêt à lancer ton projet ?</h2>
+      <p>Écris-nous sur WhatsApp — on te répond directement pour définir la formule qui te correspond.</p>
+      <button class="cta-btn cta-gold" onclick="openModal()">Démarrer maintenant</button>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">AET Technologie</div>
+        <p>Formation web & développement d'applications sur mesure, basé à Lomé, Togo.</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <a href="#programmes">Formations</a>
+        <a href="#parcours">Parcours</a>
+        <a href="#realisations">Réalisations</a>
+        <a href="#tarifs">Tarifs</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="https://wa.me/22899812072" target="_blank" rel="noopener">WhatsApp : +228 99 81 20 72</a>
+        <a href="#" onclick="openModal(); return false;">Formulaire d'inscription</a>
+      </div>
+      <div>
+        <h4>Paiement accepté</h4>
+        <div class="pay-badges">
+          <span>Flooz</span><span>T-Money</span><span>Espèces</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Alban Eloh Technology (AET) — Lomé, Togo</span>
+      <span>Fait avec HTML, CSS & JavaScript</span>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL INSCRIPTION -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Fermer">✕</button>
+    <h3>Rejoindre une formation</h3>
+    <p class="sub">Remplis ce court formulaire, on ouvre WhatsApp avec ton message pré-rempli.</p>
+    <form id="registerForm" onsubmit="sendToWhatsApp(event)">
+      <label for="fname">Nom complet</label>
+      <input id="fname" type="text" required placeholder="Ex : Kodjo Mensah">
+      <label for="fprog">Programme souhaité</label>
+      <select id="fprog">
+        <option>Formation Découverte (25 000 FCFA)</option>
+        <option>Formation Intensive (60 000 FCFA)</option>
+        <option>Développement sur mesure (devis)</option>
+      </select>
+      <label for="fphone">Numéro de téléphone</label>
+      <input id="fphone" type="tel" required placeholder="Ex : 90 00 00 00">
+      <button type="submit" class="cta-btn cta-gold modal-submit">Envoyer sur WhatsApp</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openModal(){ document.getElementById('modalBg').classList.add('open'); }
+  function closeModal(){ document.getElementById('modalBg').classList.remove('open'); }
+  document.getElementById('modalBg').addEventListener('click', function(e){
+    if(e.target === this) closeModal();
+  });
+
+  function sendToWhatsApp(e){
+    e.preventDefault();
+    const name = document.getElementById('fname').value.trim();
+    const prog = document.getElementById('fprog').value;
+    const phone = document.getElementById('fphone').value.trim();
+    const msg = `Bonjour AET Technologie, je m'appelle ${name} (tél: ${phone}) et je souhaite m'inscrire à : ${prog}.`;
+    window.open('https://wa.me/22899812072?text=' + encodeURIComponent(msg), '_blank');
+    closeModal();
+  }
+
+  // Typed line in terminal
+  const phrases = ["npm run publier --store=android", "git push origin main", "echo \"Projet en ligne ✔\""];
+  let pIndex = 0, cIndex = 0, deleting = false;
+  const typedEl = document.getElementById('typed-line');
+  function typeLoop(){
+    const current = phrases[pIndex];
+    if(!deleting){
+      cIndex++;
+      typedEl.textContent = current.slice(0, cIndex);
+      if(cIndex === current.length){ deleting = true; setTimeout(typeLoop, 1400); return; }
+    } else {
+      cIndex--;
+      typedEl.textContent = current.slice(0, cIndex);
+      if(cIndex === 0){ deleting = false; pIndex = (pIndex+1) % phrases.length; }
+    }
+    setTimeout(typeLoop, deleting ? 30 : 55);
+  }
+  typeLoop();
+
+  // Duplicate marquee content for seamless loop
+  const marquee = document.getElementById('marquee');
+  marquee.innerHTML += marquee.innerHTML;
+</script>
+
+</body>
+</html>
