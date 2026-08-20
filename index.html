@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AET Technology — Solutions numériques, Formation & Développement à Lomé | Alban Eloh Technologie</title>
-<meta name="description" content="AET Technology (Alban Eloh Technologie) accompagne les particuliers, entrepreneurs et entreprises du Togo : formation développement web, création d'applications, solutions digitales, AET Business. Paiement Flooz & T-Money.">
+<title>AET Technology — Solutions numériques, formation et développement</title>
+<meta name="description" content="AET Technology développe des solutions numériques, propose des formations pratiques et accompagne les entreprises dans leur transformation digitale. Basé à Lomé, Togo.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://alban3886.github.io/aet-technologie/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AET Technology">
-<meta property="og:title" content="AET Technology — Construisons aujourd'hui la technologie de demain">
-<meta property="og:description" content="Formation, développement d'applications et solutions digitales à Lomé, Togo. Alban Eloh Technologie.">
+<meta property="og:title" content="AET Technology — Solutions numériques, formation et développement">
+<meta property="og:description" content="AET Technology développe des solutions numériques, propose des formations pratiques et accompagne les entreprises dans leur transformation digitale.">
 <meta property="og:url" content="https://alban3886.github.io/aet-technologie/">
 <meta property="og:image" content="https://alban3886.github.io/aet-technologie/assets/hero.webp">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AET Technology — Solutions numériques, Formation & Développement">
-<meta name="twitter:description" content="Formation web, applications sur mesure et solutions digitales à Lomé, Togo.">
+<meta name="twitter:title" content="AET Technology — Solutions numériques, formation et développement">
+<meta name="twitter:description" content="AET Technology développe des solutions numériques, propose des formations pratiques et accompagne les entreprises dans leur transformation digitale.">
 <meta name="twitter:image" content="https://alban3886.github.io/aet-technologie/assets/hero.webp">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B3D2E'/%3E%3Ctext x='32' y='43' font-family='Arial' font-size='30' font-weight='800' fill='%23F2B705' text-anchor='middle'%3EAE%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -166,6 +166,9 @@
     padding:12px 16px; border-radius:12px; box-shadow:0 16px 34px -14px rgba(11,61,46,0.65); display:flex; align-items:center; gap:9px;}
   .why-img .badge-float i{font-style:normal; width:24px;height:24px;border-radius:50%; background:rgba(242,183,5,0.18); display:flex;align-items:center;justify-content:center;}
   .why-list{margin:26px 0 30px; display:grid; grid-template-columns:1fr 1fr; gap:13px 24px;}
+  .tech-cat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  .values-list{grid-template-columns:repeat(3,1fr); max-width:none;}
+  .trust-list{grid-template-columns:repeat(5,1fr); max-width:none;}
   .why-list li{list-style:none; display:flex; align-items:center; gap:11px; font-size:0.95rem; font-weight:600; color:#2c352f;}
   .why-list i{width:24px;height:24px;border-radius:50%; flex-shrink:0; background:linear-gradient(145deg,var(--forest),var(--forest-deep)); color:var(--gold);
     display:inline-flex;align-items:center;justify-content:center; font-style:normal; font-size:0.68rem;}
@@ -366,6 +369,9 @@
   @media (max-width:1020px){
     .sol-grid, .form-grid{grid-template-columns:1fr 1fr;}
     .tech-grid{grid-template-columns:repeat(4,1fr);}
+    .tech-cat-grid{grid-template-columns:1fr 1fr;}
+    .values-list{grid-template-columns:1fr 1fr;}
+    .trust-list{grid-template-columns:repeat(3,1fr);}
     .why, .biz, .contact{grid-template-columns:1fr; gap:44px;}
     .path{grid-template-columns:repeat(3,1fr); row-gap:34px;}
     .path::before{display:none;}
@@ -388,6 +394,9 @@
     .form-grid{grid-template-columns:1fr;}
     .art-grid{grid-template-columns:1fr;}
     .tech-grid{grid-template-columns:repeat(3,1fr);}
+    .tech-cat-grid{grid-template-columns:1fr;}
+    .values-list{grid-template-columns:1fr;}
+    .trust-list{grid-template-columns:1fr 1fr;}
     .hero-checks{grid-template-columns:1fr;}
     .why-list, .biz-list{grid-template-columns:1fr;}
     .cform .row{grid-template-columns:1fr;}
@@ -757,12 +766,13 @@
           <h2 style="font-size:clamp(1.8rem,3.1vw,2.5rem); font-weight:800; line-height:1.16; color:var(--sand); margin-top:18px; max-width:16ch;">Digitalisez votre activité avec AET Business.</h2>
           <p style="margin-top:16px; color:rgba(250,246,236,0.72); font-size:1.02rem; line-height:1.68; max-width:46ch;">La solution tout-en-un pour gérer votre commerce : ventes, stock, clients et statistiques — accessible depuis n'importe quel smartphone, avec QR Code intégré.</p>
           <ul class="biz-list">
-            <li><i>✓</i> Gestion commerciale</li>
-            <li><i>✓</i> Gestion des stocks</li>
-            <li><i>✓</i> QR Code</li>
-            <li><i>✓</i> Ventes</li>
-            <li><i>✓</i> Statistiques</li>
-            <li><i>✓</i> Automatisation</li>
+            <li><i>🧾</i> Gestion commerciale</li>
+            <li><i>📦</i> Gestion des stocks</li>
+            <li><i>📱</i> QR Code</li>
+            <li><i>🛒</i> Gestion des ventes</li>
+            <li><i>📊</i> Statistiques</li>
+            <li><i>👥</i> Clients</li>
+            <li><i>⚙️</i> Automatisation</li>
           </ul>
           <a class="btn btn-gold" href="https://api.whatsapp.com/send?phone=22899812072&text=Bonjour%20AET%20Technologie%2C%20je%20souhaite%20d%C3%A9couvrir%20AET%20Business." target="_blank" rel="noopener">Découvrir AET Business</a>
         </div>
@@ -782,7 +792,7 @@
         <h2>Les technologies derrière nos solutions.</h2>
         <p>Un socle moderne, éprouvé et accessible — parfaitement adapté aux projets web et mobiles.</p>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin-top:10px;" class="tech-cat-grid">
+      <div class="tech-cat-grid" style="margin-top:10px;">
         <div class="reveal">
           <p style="font-family:'JetBrains Mono'; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold); margin-bottom:14px;">Frontend</p>
           <div class="tech-grid" style="grid-template-columns:1fr;">
@@ -838,7 +848,7 @@
       </div>
       <div style="margin-top:26px;">
         <p style="font-family:'JetBrains Mono'; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-bottom:12px;">Nos valeurs</p>
-        <ul class="why-list" style="grid-template-columns:repeat(3,1fr);">
+        <ul class="why-list values-list">
           <li><i>✓</i> Innovation</li>
           <li><i>✓</i> Accessibilité</li>
           <li><i>✓</i> Pratique</li>
@@ -856,7 +866,7 @@
         <span class="eyebrow" style="color:var(--gold); background:rgba(242,183,5,0.12); border-color:rgba(242,183,5,0.25);"><span class="dot"></span> Confiance</span>
         <h2 style="color:var(--sand);">Pourquoi nous faire confiance ?</h2>
       </div>
-      <ul class="why-list" style="grid-template-columns:repeat(5,1fr); max-width:none;">
+      <ul class="why-list trust-list">
         <li style="color:rgba(250,246,236,0.85);"><i style="color:var(--gold);">✓</i> Projets concrets</li>
         <li style="color:rgba(250,246,236,0.85);"><i style="color:var(--gold);">✓</i> Solutions numériques</li>
         <li style="color:rgba(250,246,236,0.85);"><i style="color:var(--gold);">✓</i> Formation pratique</li>
