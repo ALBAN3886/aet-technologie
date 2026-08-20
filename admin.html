@@ -164,6 +164,7 @@
         <button class="sb-item" data-view="articles" onclick="showView('articles')"><span class="ic">📰</span> Publications</button>
         <button class="sb-item" data-view="editor" onclick="showView('editor')"><span class="ic">✚</span> Créer un article</button>
         <button class="sb-item" data-view="subs" onclick="showView('subs')"><span class="ic">👥</span> Inscrits Premium</button>
+        <button class="sb-item" data-view="contacts" onclick="showView('contacts')"><span class="ic">✉️</span> Demandes de contact</button>
         <button class="sb-item" data-view="stats" onclick="showView('stats')"><span class="ic">📊</span> Statistiques</button>
         <button class="sb-item" data-view="settings" onclick="showView('settings')"><span class="ic">⚙</span> Paramètres</button>
       </nav>
@@ -224,6 +225,9 @@
           <textarea id="fDescription" placeholder="Résumé court affiché sur le site"></textarea>
           <label for="fLink">Lien (optionnel)</label>
           <input id="fLink" type="url" placeholder="https://...">
+          <label for="fImage">Image (optionnel)</label>
+          <input id="fImage" type="url" placeholder="https://... (URL d'une image, ex: lien d'une image hébergée)">
+          <p class="sub" style="margin-top:-10px;">Astuce : héberge ton image sur <a href="https://postimages.org" target="_blank" rel="noopener">postimages.org</a> ou <a href="https://imgur.com" target="_blank" rel="noopener">imgur.com</a> (gratuit), puis colle le lien direct ici.</p>
           <div class="checkline">
             <input type="checkbox" id="fPremium"> <label for="fPremium">Contenu Premium (réservé aux inscrits)</label>
           </div>
@@ -241,8 +245,19 @@
       <!-- Subs -->
       <div class="view" id="view-subs">
         <div class="card">
-          <h3 style="font-size:1.05rem; margin-bottom:16px; color:var(--forest-black);">Inscrits Premium (<span id="subCount">0</span>)</h3>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
+            <h3 style="font-size:1.05rem; color:var(--forest-black);">Inscrits Premium (<span id="subCount">0</span>)</h3>
+            <button class="btn-ghost btn-small" onclick="exportSubsCSV()">⬇ Exporter en CSV</button>
+          </div>
           <div class="subs-list" id="subsList"><p class="sub">Chargement…</p></div>
+        </div>
+      </div>
+
+      <!-- Contacts -->
+      <div class="view" id="view-contacts">
+        <div class="card">
+          <h3 style="font-size:1.05rem; margin-bottom:16px; color:var(--forest-black);">Demandes de contact (<span id="contactCount">0</span>)</h3>
+          <div class="subs-list" id="contactsList"><p class="sub">Chargement…</p></div>
         </div>
       </div>
 
@@ -296,6 +311,7 @@
     articles: 'Publications',
     editor: 'Créer un article',
     subs: 'Inscrits Premium',
+    contacts: 'Demandes de contact',
     stats: 'Statistiques',
     settings: 'Paramètres'
   };
@@ -308,7 +324,7 @@
       b.classList.toggle('active', b.getAttribute('data-view') === name);
     });
     document.getElementById('viewTitle').textContent = VIEW_TITLES[name] || 'Dashboard';
-    if(name === 'dashboard' || name === 'articles' || name === 'subs'){ reloadData(); }
+    if(name === 'dashboard' || name === 'articles' || name === 'subs' || name === 'contacts'){ reloadData(); }
     toggleSidebar(false);
   }
 
@@ -351,6 +367,7 @@
     document.getElementById('fCategory').value = '';
     document.getElementById('fDescription').value = '';
     document.getElementById('fLink').value = '';
+    document.getElementById('fImage').value = '';
     document.getElementById('fPremium').checked = false;
     document.getElementById('fPublished').checked = true;
     document.getElementById('formTitle').textContent = 'Publier un article';
@@ -364,6 +381,7 @@
     const description = document.getElementById('fDescription').value.trim();
     const category = document.getElementById('fCategory').value.trim();
     const link = document.getElementById('fLink').value.trim();
+    const image = document.getElementById('fImage').value.trim();
     const premium = document.getElementById('fPremium').checked;
     const published = document.getElementById('fPublished').checked;
     const msgEl = document.getElementById('formMsg');
@@ -374,7 +392,7 @@
       return;
     }
 
-    const data = { title: title, description: description, category: category, link: link, premium: premium, published: published };
+    const data = { title: title, description: description, category: category, link: link, image: image, premium: premium, published: published };
 
     let promise;
     if(id){
@@ -401,6 +419,7 @@
     document.getElementById('fCategory').value = data.category || '';
     document.getElementById('fDescription').value = data.description || '';
     document.getElementById('fLink').value = data.link || '';
+    document.getElementById('fImage').value = data.image || '';
     document.getElementById('fPremium').checked = !!data.premium;
     document.getElementById('fPublished').checked = data.published !== false;
     document.getElementById('formTitle').textContent = 'Modifier l\'article';
@@ -488,9 +507,11 @@
         return;
       }
       let html = '';
+      currentSubsEmails = [];
       snap.forEach(function(doc){
         const s = doc.data();
         const dateStr = s.createdAt && s.createdAt.toDate ? s.createdAt.toDate().toLocaleDateString('fr-FR') : '';
+        currentSubsEmails.push({ email: s.email || '', date: dateStr });
         html += '<div><span class="sub-email">' + escapeHtml(s.email) + '</span><span class="sub-date">' + dateStr + '</span></div>';
       });
       list.innerHTML = html;
@@ -499,7 +520,50 @@
     });
   }
 
-  function reloadData(){ loadArticlesAdmin(); loadSubscribers(); }
+  let currentSubsEmails = [];
+
+  function exportSubsCSV(){
+    if(!currentSubsEmails.length){ alert('Aucun inscrit à exporter.'); return; }
+    let csv = 'email,date\n' + currentSubsEmails.map(function(r){ return r.email + ',' + r.date; }).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'inscrits-aet-' + new Date().toISOString().slice(0,10) + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function loadContacts(){
+    const list = document.getElementById('contactsList');
+    if(!list) return;
+    db.collection('contacts').orderBy('createdAt', 'desc').get().then(function(snap){
+      const n = snap.size;
+      document.getElementById('contactCount').textContent = n;
+      if(snap.empty){
+        list.innerHTML = '<p class="sub">Aucune demande pour le moment.</p>';
+        return;
+      }
+      let html = '';
+      snap.forEach(function(doc){
+        const c = doc.data();
+        const dateStr = c.createdAt && c.createdAt.toDate ? c.createdAt.toDate().toLocaleDateString('fr-FR') + ' ' + c.createdAt.toDate().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'}) : '';
+        html += '<div style="flex-direction:column; align-items:flex-start; gap:4px;">';
+        html += '<div style="display:flex; justify-content:space-between; width:100%;"><b>' + escapeHtml(c.name || '—') + '</b><span class="sub-date">' + dateStr + '</span></div>';
+        html += '<div style="font-size:0.84rem; color:#4a564e;">📞 ' + escapeHtml(c.phone || '—') + (c.email ? ' · ✉️ ' + escapeHtml(c.email) : '') + '</div>';
+        html += '<div style="font-size:0.84rem; color:#4a564e;">Type : ' + escapeHtml(c.type || '—') + '</div>';
+        if(c.message){ html += '<div style="font-size:0.84rem; color:#3f4a43;">' + escapeHtml(c.message) + '</div>'; }
+        html += '</div>';
+      });
+      list.innerHTML = html;
+    }).catch(function(err){
+      list.innerHTML = '<p class="msg err">Erreur : ' + err.message + '</p>';
+    });
+  }
+
+  function reloadData(){ loadArticlesAdmin(); loadSubscribers(); loadContacts(); }
 
   document.getElementById('loginPass').addEventListener('keydown', function(e){
     if(e.key === 'Enter') doLogin();
