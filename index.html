@@ -1079,7 +1079,7 @@
           const a = doc.data();
           const dateStr = a.createdAt && a.createdAt.toDate ? a.createdAt.toDate().toLocaleDateString('fr-FR') : '';
           html += '<article class="art-card">';
-          html += '<div class="art-img"><span class="lock-big">' + (a.premium ? '🔒' : '📄') + '</span></div>';
+          html += '<div class="art-img">' + (a.image ? '<img src="' + escapeHtml(a.image) + '" alt="' + escapeHtml(a.title) + '" loading="lazy">' : '<span class="lock-big">' + (a.premium ? '🔒' : '📄') + '</span>') + '</div>';
           html += '<div class="art-body">';
           html += '<div class="art-top">';
           html += '<span class="art-badge ' + (a.premium ? 'premium' : 'free') + '">' + (a.premium ? 'Premium' : 'Gratuit') + '</span>';
@@ -1137,6 +1137,12 @@
     const type = document.getElementById('cType').value;
     const message = document.getElementById('cMsg').value.trim();
     const msg = `Bonjour AET Technology, je m'appelle ${name} (tél: ${phone}${email ? ', email: '+email : ''}). Type de projet : ${type}. ${message}`;
+
+    db.collection('contacts').add({
+      name: name, phone: phone, email: email, type: type, message: message,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(function(err){ console.error('Erreur enregistrement contact:', err); });
+
     window.open('https://wa.me/22899812072?text=' + encodeURIComponent(msg), '_blank');
   }
 
