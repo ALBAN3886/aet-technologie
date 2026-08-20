@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /admin.html
 
 Sitemap: https://alban3886.github.io/aet-technologie/sitemap.xml
