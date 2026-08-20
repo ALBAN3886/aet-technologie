@@ -442,6 +442,20 @@
 </div>
 
 <main>
+  <!-- ================= ACTUALITÉS ================= -->
+  <section id="actualites">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="dot"></span> Actualités AET</span>
+        <h2>Nos dernières publications</h2>
+        <p>Guides, liens utiles et infos pratiques. Le contenu marqué <strong>Premium</strong> est réservé aux membres inscrits gratuitement.</p>
+      </div>
+      <div class="art-grid" id="artGrid">
+        <p class="art-empty">Chargement des publications…</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= HERO ================= -->
   <section id="accueil" class="hero" style="padding-bottom:70px;">
     <div>
@@ -760,20 +774,6 @@
     </div>
   </section>
 
-  <!-- ================= ACTUALITÉS ================= -->
-  <section id="actualites">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow"><span class="dot"></span> Actualités AET</span>
-        <h2>Nos dernières publications</h2>
-        <p>Guides, liens utiles et infos pratiques. Le contenu marqué <strong>Premium</strong> est réservé aux membres inscrits gratuitement.</p>
-      </div>
-      <div class="art-grid" id="artGrid">
-        <p class="art-empty">Chargement des publications…</p>
-      </div>
-    </div>
-  </section>
-
   <!-- ================= RESSOURCES GRATUITES ================= -->
   <section id="ressources" class="bg-sand">
     <div class="wrap">
@@ -1056,6 +1056,12 @@
     });
   }
 
+  function linkify(str){
+    return escapeHtml(str).replace(/(https?:\/\/[^\s<]+)/g, function(url){
+      return '<a href="' + url + '" target="_blank" rel="noopener" style="color:var(--forest); font-weight:600; text-decoration:underline; word-break:break-all;">' + url + '</a>';
+    });
+  }
+
   function loadArticles(){
     const grid = document.getElementById('artGrid');
     db.collection('articles')
@@ -1081,7 +1087,7 @@
           html += '</div>';
           if(a.category){ html += '<div class="art-cat">' + escapeHtml(a.category) + '</div>'; }
           html += '<h3>' + escapeHtml(a.title) + '</h3>';
-          html += '<p>' + escapeHtml(a.description) + '</p>';
+          html += '<p style="white-space:pre-line;">' + linkify(a.description) + '</p>';
           if(a.premium && !unlocked){
             html += '<div class="art-locked" onclick="openPremiumModal(\'' + doc.id + '\')">🔒 Inscris-toi (gratuit) pour lire &amp; accéder au lien</div>';
           } else if(a.link){
