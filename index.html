@@ -235,6 +235,34 @@
     background:#F2EDE0; border:1px solid var(--line);
   }
 
+  /* ---------- Actualités ---------- */
+  .art-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .art-card{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px 24px; display:flex; flex-direction:column; position:relative;
+  }
+  .art-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:14px;}
+  .art-badge{
+    font-family:'JetBrains Mono'; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em;
+    padding:4px 10px; border-radius:100px; white-space:nowrap;
+  }
+  .art-badge.free{background:rgba(11,61,46,0.08); color:var(--forest);}
+  .art-badge.premium{background:rgba(242,183,5,0.18); color:#8a6400;}
+  .art-date{font-family:'JetBrains Mono'; font-size:0.74rem; color:#8a958d;}
+  .art-card h3{font-size:1.05rem; font-weight:700; margin-bottom:8px; line-height:1.35;}
+  .art-card p{color:#4a564e; font-size:0.9rem; line-height:1.6; margin:0 0 18px; flex:1;}
+  .art-link{
+    font-size:0.86rem; font-weight:600; text-decoration:none; color:var(--forest);
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .art-locked{
+    display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#8a6400;
+    background:rgba(242,183,5,0.1); border:1px dashed rgba(242,183,5,0.4); border-radius:10px;
+    padding:10px 12px; cursor:pointer;
+  }
+  .art-empty{color:#5c6a61; font-size:0.92rem;}
+  .art-cat{font-family:'JetBrains Mono'; font-size:0.72rem; color:#5c6a61; margin-bottom:2px;}
+
   /* ---------- Modal ---------- */
   .modal-bg{
     position:fixed; inset:0; background:rgba(7,42,32,0.55); backdrop-filter:blur(3px);
@@ -265,6 +293,7 @@
     .hero{grid-template-columns:1fr; padding-top:48px;}
     .grid-3{grid-template-columns:1fr;}
     .grid-2{grid-template-columns:1fr;}
+    .art-grid{grid-template-columns:1fr;}
     .path{grid-template-columns:1fr 1fr; gap:28px;}
     .path::before{display:none;}
     .foot-grid{grid-template-columns:1fr 1fr;}
@@ -287,6 +316,7 @@
       <a href="#programmes">Formations</a>
       <a href="#parcours">Parcours</a>
       <a href="#realisations">Réalisations</a>
+      <a href="#actualites">Actualités</a>
       <a href="#ressources">Ressources</a>
       <a href="#tarifs">Tarifs</a>
       <a href="#contact">Contact</a>
@@ -448,6 +478,20 @@
     </div>
   </section>
 
+  <!-- ACTUALITÉS -->
+  <section id="actualites">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow"><span class="dot"></span> Actualités AET</span>
+        <h2>Nos dernières publications</h2>
+        <p>Guides, liens utiles et infos pratiques. Le contenu marqué <strong>Premium</strong> est réservé aux membres inscrits gratuitement.</p>
+      </div>
+      <div class="art-grid" id="artGrid">
+        <p class="art-empty">Chargement des publications…</p>
+      </div>
+    </div>
+  </section>
+
   <!-- TARIFS -->
   <section id="tarifs" style="background:#F2EDE0;">
     <div class="wrap">
@@ -571,6 +615,119 @@
     </form>
   </div>
 </div>
+
+<!-- MODAL ACCÈS PREMIUM -->
+<div class="modal-bg" id="premiumModalBg">
+  <div class="modal">
+    <button class="modal-close" onclick="closePremiumModal()" aria-label="Fermer">✕</button>
+    <h3>Accès Premium gratuit</h3>
+    <p class="sub">Inscris ton email pour débloquer immédiatement le contenu premium — pas de paiement pour l'instant.</p>
+    <form id="premiumForm" onsubmit="submitPremiumEmail(event)">
+      <label for="pemail">Adresse email</label>
+      <input id="pemail" type="email" required placeholder="Ex : toi@exemple.com">
+      <button type="submit" class="cta-btn cta-gold modal-submit">Débloquer le contenu</button>
+    </form>
+    <p id="premiumMsg" style="font-size:0.82rem; color:#5c6a61; margin-top:10px;"></p>
+  </div>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+  // ⚠️ Remplace par la config de ton projet Firebase (console.firebase.google.com)
+  const firebaseConfig = {
+    apiKey: "AIzaSyDSpImHzUe5QsEnf3VpkjMSS3tIm0vc8ak",
+    authDomain: "aet-technologie.firebaseapp.com",
+    projectId: "aet-technologie",
+    storageBucket: "aet-technologie.firebasestorage.app",
+    messagingSenderId: "97917021410",
+    appId: "1:97917021410:web:5efbb7b24dd29e5c7c82bb"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  const PREMIUM_KEY = 'aet_premium_unlocked';
+  function isPremiumUnlocked(){ return localStorage.getItem(PREMIUM_KEY) === 'yes'; }
+
+  let pendingArticleId = null;
+  function openPremiumModal(articleId){
+    pendingArticleId = articleId || null;
+    document.getElementById('premiumModalBg').classList.add('open');
+  }
+  function closePremiumModal(){ document.getElementById('premiumModalBg').classList.remove('open'); }
+  document.getElementById('premiumModalBg').addEventListener('click', function(e){
+    if(e.target === this) closePremiumModal();
+  });
+
+  function submitPremiumEmail(e){
+    e.preventDefault();
+    const email = document.getElementById('pemail').value.trim();
+    const msgEl = document.getElementById('premiumMsg');
+    db.collection('subscribers').add({
+      email: email,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(function(){
+      localStorage.setItem(PREMIUM_KEY, 'yes');
+      msgEl.textContent = "Accès débloqué ✓";
+      msgEl.style.color = 'var(--forest)';
+      setTimeout(function(){
+        closePremiumModal();
+        loadArticles();
+      }, 700);
+    }).catch(function(err){
+      msgEl.textContent = "Erreur, réessaie.";
+      msgEl.style.color = 'var(--clay)';
+      console.error(err);
+    });
+  }
+
+  function escapeHtml(str){
+    return (str || '').replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function loadArticles(){
+    const grid = document.getElementById('artGrid');
+    db.collection('articles')
+      .where('published', '==', true)
+      .orderBy('createdAt', 'desc')
+      .get()
+      .then(function(snap){
+        if(snap.empty){
+          grid.innerHTML = '<p class="art-empty">Aucune publication pour le moment. Reviens bientôt !</p>';
+          return;
+        }
+        const unlocked = isPremiumUnlocked();
+        let html = '';
+        snap.forEach(function(doc){
+          const a = doc.data();
+          const dateStr = a.createdAt && a.createdAt.toDate ? a.createdAt.toDate().toLocaleDateString('fr-FR') : '';
+          html += '<div class="art-card">';
+          html += '<div class="art-top">';
+          html += '<span class="art-badge ' + (a.premium ? 'premium' : 'free') + '">' + (a.premium ? 'Premium' : 'Gratuit') + '</span>';
+          html += '<span class="art-date">' + dateStr + '</span>';
+          html += '</div>';
+          if(a.category){ html += '<div class="art-cat">' + escapeHtml(a.category) + '</div>'; }
+          html += '<h3>' + escapeHtml(a.title) + '</h3>';
+          html += '<p>' + escapeHtml(a.description) + '</p>';
+          if(a.premium && !unlocked){
+            html += '<div class="art-locked" onclick="openPremiumModal(\'' + doc.id + '\')">🔒 Inscris-toi (gratuit) pour lire &amp; accéder au lien</div>';
+          } else if(a.link){
+            html += '<a class="art-link" href="' + escapeHtml(a.link) + '" target="_blank" rel="noopener">Voir le lien →</a>';
+          }
+          html += '</div>';
+        });
+        grid.innerHTML = html;
+      })
+      .catch(function(err){
+        console.error(err);
+        grid.innerHTML = '<p class="art-empty">Impossible de charger les publications pour le moment.</p>';
+      });
+  }
+  loadArticles();
+</script>
 
 <script>
   function openModal(){ document.getElementById('modalBg').classList.add('open'); }

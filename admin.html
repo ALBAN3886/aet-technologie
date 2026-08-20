@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — AET Technologie</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#0B3D2E; --forest-deep:#072A20; --gold:#F2B705; --clay:#B3212E;
+    --sand:#FAF6EC; --ink:#17201C; --line: rgba(11,61,46,0.14); --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--sand); color:var(--ink); font-family:'Work Sans',sans-serif;}
+  h1,h2,h3{font-family:'Sora',sans-serif; margin:0;}
+  .wrap{max-width:820px; margin:0 auto; padding:32px 20px 80px;}
+  .topbar{display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--line); background:rgba(250,246,236,0.9); position:sticky; top:0; z-index:10;}
+  .brand{font-weight:800; font-family:'Sora'; display:flex; align-items:center; gap:8px;}
+  .brand .mark{width:32px;height:32px;border-radius:8px;background:linear-gradient(155deg,var(--forest),var(--forest-deep));color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;}
+  button{cursor:pointer; font-family:inherit;}
+  .btn{background:var(--forest); color:var(--sand); border:none; padding:10px 18px; border-radius:100px; font-weight:600; font-size:0.88rem;}
+  .btn:hover{background:var(--forest-deep);}
+  .btn-gold{background:var(--gold); color:var(--forest-deep);}
+  .btn-gold:hover{background:#ffc61a;}
+  .btn-ghost{background:transparent; color:var(--clay); border:1px solid var(--clay); padding:8px 14px; border-radius:100px; font-size:0.82rem; font-weight:600;}
+  .btn-small{padding:7px 12px; font-size:0.78rem; border-radius:8px;}
+  .card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:26px; margin-bottom:22px;}
+  label{font-size:0.82rem; font-weight:600; display:block; margin-bottom:6px; margin-top:14px;}
+  input[type=text], input[type=email], input[type=password], input[type=url], textarea, select{
+    width:100%; padding:11px 13px; border-radius:9px; border:1px solid var(--line);
+    background:#fff; font-family:'Work Sans'; font-size:0.92rem;
+  }
+  textarea{min-height:80px; resize:vertical; font-family:'Work Sans';}
+  .checkline{display:flex; align-items:center; gap:8px; margin-top:16px;}
+  .checkline input{width:auto;}
+  #loginScreen{max-width:380px; margin:80px auto;}
+  #appScreen{display:none;}
+  .art-row{border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:12px; display:flex; justify-content:space-between; gap:16px; align-items:flex-start;}
+  .art-row h4{font-size:0.98rem; margin-bottom:4px;}
+  .art-row p{font-size:0.84rem; color:#4a564e; margin:0 0 8px; line-height:1.5;}
+  .badges{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:6px;}
+  .badge{font-family:'JetBrains Mono'; font-size:0.68rem; padding:3px 8px; border-radius:100px;}
+  .badge.premium{background:rgba(242,183,5,0.18); color:#8a6400;}
+  .badge.free{background:rgba(11,61,46,0.08); color:var(--forest);}
+  .badge.pub{background:rgba(79,174,108,0.15); color:#2e7d47;}
+  .badge.draft{background:rgba(179,33,46,0.1); color:var(--clay);}
+  .row-actions{display:flex; flex-direction:column; gap:6px; flex-shrink:0;}
+  .msg{font-size:0.86rem; margin-top:10px;}
+  .err{color:var(--clay);}
+  .ok{color:var(--forest);}
+  .sub{color:#4a564e; font-size:0.88rem; margin:4px 0 0;}
+  .subs-list{font-size:0.85rem; color:#3f4a43; max-height:200px; overflow-y:auto;}
+  .subs-list div{padding:6px 0; border-bottom:1px solid var(--line);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="mark">AE</span> Admin AET</div>
+  <button class="btn-ghost" id="logoutBtn" style="display:none;" onclick="doLogout()">Déconnexion</button>
+</div>
+
+<div id="loginScreen" class="wrap">
+  <div class="card">
+    <h2>Connexion admin</h2>
+    <p class="sub">Réservé à AET Technologie.</p>
+    <label for="loginEmail">Email</label>
+    <input id="loginEmail" type="email" placeholder="admin@aet.tg">
+    <label for="loginPass">Mot de passe</label>
+    <input id="loginPass" type="password" placeholder="••••••••">
+    <button class="btn btn-gold" style="width:100%; margin-top:20px;" onclick="doLogin()">Se connecter</button>
+    <p class="msg err" id="loginMsg"></p>
+  </div>
+</div>
+
+<div id="appScreen" class="wrap">
+  <div class="card">
+    <h2 id="formTitle">Publier un article</h2>
+    <p class="sub">Renseigne les infos et coche "Premium" si l'accès doit être réservé aux inscrits.</p>
+    <input type="hidden" id="articleId">
+    <label for="fTitle">Titre</label>
+    <input id="fTitle" type="text" placeholder="Ex : Comment obtenir un casier judiciaire à Lomé">
+    <label for="fCategory">Catégorie (optionnel)</label>
+    <input id="fCategory" type="text" placeholder="Ex : Démarches administratives">
+    <label for="fDescription">Description</label>
+    <textarea id="fDescription" placeholder="Résumé court affiché sur le site"></textarea>
+    <label for="fLink">Lien (optionnel)</label>
+    <input id="fLink" type="url" placeholder="https://...">
+    <div class="checkline">
+      <input type="checkbox" id="fPremium"> <label for="fPremium" style="margin:0;">Contenu Premium (réservé aux inscrits)</label>
+    </div>
+    <div class="checkline">
+      <input type="checkbox" id="fPublished" checked> <label for="fPublished" style="margin:0;">Publié (visible sur le site)</label>
+    </div>
+    <div style="display:flex; gap:10px; margin-top:20px;">
+      <button class="btn btn-gold" onclick="saveArticle()">Enregistrer</button>
+      <button class="btn-ghost" id="cancelEditBtn" style="display:none;" onclick="resetForm()">Annuler</button>
+    </div>
+    <p class="msg" id="formMsg"></p>
+  </div>
+
+  <div class="card">
+    <h2>Publications</h2>
+    <div id="articlesList"><p class="sub">Chargement…</p></div>
+  </div>
+
+  <div class="card">
+    <h2>Inscrits Premium (<span id="subCount">0</span>)</h2>
+    <div class="subs-list" id="subsList"><p class="sub">Chargement…</p></div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+  // ⚠️ Même config que sur index.html (console.firebase.google.com)
+  const firebaseConfig = {
+    apiKey: "AIzaSyDSpImHzUe5QsEnf3VpkjMSS3tIm0vc8ak",
+    authDomain: "aet-technologie.firebaseapp.com",
+    projectId: "aet-technologie",
+    storageBucket: "aet-technologie.firebasestorage.app",
+    messagingSenderId: "97917021410",
+    appId: "1:97917021410:web:5efbb7b24dd29e5c7c82bb"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  auth.onAuthStateChanged(function(user){
+    if(user){
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('appScreen').style.display = 'block';
+      document.getElementById('logoutBtn').style.display = 'inline-block';
+      loadArticlesAdmin();
+      loadSubscribers();
+    } else {
+      document.getElementById('loginScreen').style.display = 'block';
+      document.getElementById('appScreen').style.display = 'none';
+      document.getElementById('logoutBtn').style.display = 'none';
+    }
+  });
+
+  function doLogin(){
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass = document.getElementById('loginPass').value;
+    const msgEl = document.getElementById('loginMsg');
+    msgEl.textContent = '';
+    auth.signInWithEmailAndPassword(email, pass).catch(function(err){
+      msgEl.textContent = "Connexion refusée : " + err.message;
+    });
+  }
+  function doLogout(){ auth.signOut(); }
+
+  function resetForm(){
+    document.getElementById('articleId').value = '';
+    document.getElementById('fTitle').value = '';
+    document.getElementById('fCategory').value = '';
+    document.getElementById('fDescription').value = '';
+    document.getElementById('fLink').value = '';
+    document.getElementById('fPremium').checked = false;
+    document.getElementById('fPublished').checked = true;
+    document.getElementById('formTitle').textContent = 'Publier un article';
+    document.getElementById('cancelEditBtn').style.display = 'none';
+    document.getElementById('formMsg').textContent = '';
+  }
+
+  function saveArticle(){
+    const id = document.getElementById('articleId').value;
+    const title = document.getElementById('fTitle').value.trim();
+    const description = document.getElementById('fDescription').value.trim();
+    const category = document.getElementById('fCategory').value.trim();
+    const link = document.getElementById('fLink').value.trim();
+    const premium = document.getElementById('fPremium').checked;
+    const published = document.getElementById('fPublished').checked;
+    const msgEl = document.getElementById('formMsg');
+
+    if(!title || !description){
+      msgEl.textContent = "Titre et description sont obligatoires.";
+      msgEl.className = 'msg err';
+      return;
+    }
+
+    const data = { title, description, category, link, premium, published };
+
+    let promise;
+    if(id){
+      promise = db.collection('articles').doc(id).update(data);
+    } else {
+      data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+      promise = db.collection('articles').add(data);
+    }
+
+    promise.then(function(){
+      msgEl.textContent = "Enregistré ✓";
+      msgEl.className = 'msg ok';
+      resetForm();
+      loadArticlesAdmin();
+    }).catch(function(err){
+      msgEl.textContent = "Erreur : " + err.message;
+      msgEl.className = 'msg err';
+    });
+  }
+
+  function editArticle(id, data){
+    document.getElementById('articleId').value = id;
+    document.getElementById('fTitle').value = data.title || '';
+    document.getElementById('fCategory').value = data.category || '';
+    document.getElementById('fDescription').value = data.description || '';
+    document.getElementById('fLink').value = data.link || '';
+    document.getElementById('fPremium').checked = !!data.premium;
+    document.getElementById('fPublished').checked = data.published !== false;
+    document.getElementById('formTitle').textContent = 'Modifier l\'article';
+    document.getElementById('cancelEditBtn').style.display = 'inline-block';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function deleteArticle(id){
+    if(!confirm('Supprimer définitivement cette publication ?')) return;
+    db.collection('articles').doc(id).delete().then(loadArticlesAdmin);
+  }
+
+  function togglePublished(id, current){
+    db.collection('articles').doc(id).update({ published: !current }).then(loadArticlesAdmin);
+  }
+
+  function escapeHtml(str){
+    return (str || '').replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function loadArticlesAdmin(){
+    const list = document.getElementById('articlesList');
+    db.collection('articles').orderBy('createdAt', 'desc').get().then(function(snap){
+      if(snap.empty){
+        list.innerHTML = '<p class="sub">Aucune publication pour le moment.</p>';
+        return;
+      }
+      let html = '';
+      snap.forEach(function(doc){
+        const a = doc.data();
+        html += '<div class="art-row">';
+        html += '<div>';
+        html += '<div class="badges">';
+        html += '<span class="badge ' + (a.premium ? 'premium' : 'free') + '">' + (a.premium ? 'Premium' : 'Gratuit') + '</span>';
+        html += '<span class="badge ' + (a.published !== false ? 'pub' : 'draft') + '">' + (a.published !== false ? 'Publié' : 'Brouillon') + '</span>';
+        html += '</div>';
+        html += '<h4>' + escapeHtml(a.title) + '</h4>';
+        html += '<p>' + escapeHtml(a.description) + '</p>';
+        html += '</div>';
+        html += '<div class="row-actions">';
+        html += '<button class="btn-ghost btn-small" onclick=\'editArticle("' + doc.id + '", ' + JSON.stringify(a).replace(/'/g, "&#39;") + ')\'>Modifier</button>';
+        html += '<button class="btn-ghost btn-small" onclick="togglePublished(\'' + doc.id + '\', ' + (a.published !== false) + ')">' + (a.published !== false ? 'Dépublier' : 'Publier') + '</button>';
+        html += '<button class="btn-ghost btn-small" onclick="deleteArticle(\'' + doc.id + '\')">Supprimer</button>';
+        html += '</div></div>';
+      });
+      list.innerHTML = html;
+    }).catch(function(err){
+      list.innerHTML = '<p class="msg err">Erreur : ' + err.message + '</p>';
+    });
+  }
+
+  function loadSubscribers(){
+    const list = document.getElementById('subsList');
+    db.collection('subscribers').orderBy('createdAt', 'desc').get().then(function(snap){
+      document.getElementById('subCount').textContent = snap.size;
+      if(snap.empty){
+        list.innerHTML = '<p class="sub">Aucun inscrit pour le moment.</p>';
+        return;
+      }
+      let html = '';
+      snap.forEach(function(doc){
+        const s = doc.data();
+        const dateStr = s.createdAt && s.createdAt.toDate ? s.createdAt.toDate().toLocaleDateString('fr-FR') : '';
+        html += '<div>' + escapeHtml(s.email) + ' <span style="color:#8a958d;">— ' + dateStr + '</span></div>';
+      });
+      list.innerHTML = html;
+    }).catch(function(err){
+      list.innerHTML = '<p class="msg err">Erreur : ' + err.message + '</p>';
+    });
+  }
+</script>
+
+</body>
+</html>
