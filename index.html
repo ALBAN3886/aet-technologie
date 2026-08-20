@@ -1093,7 +1093,7 @@
       })
       .catch(function(err){
         console.error(err);
-        grid.innerHTML = '<p class="art-empty">Impossible de charger les publications pour le moment.</p>';
+        grid.innerHTML = '<p class="art-empty">Impossible de charger les publications pour le moment.<br><small style="color:#B3212E;">Détail technique : ' + escapeHtml(err.message || String(err)) + '</small></p>';
       });
   }
   loadArticles();
