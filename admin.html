@@ -19,7 +19,11 @@
   h1,h2,h3,h4{font-family:'Sora',sans-serif; margin:0; letter-spacing:-0.01em;}
   .mono{font-family:'JetBrains Mono',monospace;}
   button{cursor:pointer; font-family:inherit;}
-  :focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+  :focus-visible{outline:3px solid var(--gold); outline-offset:2px; border-radius:6px;}
+  ::selection{background:var(--gold); color:var(--forest-black);}
+  /* Vue active : légère compensation du scroll */
+  .view{display:none;}
+  .view.active{display:block; animation:fadeIn .28s ease; scroll-margin-top:20px;}
 
   .btn{background:var(--forest); color:var(--sand); border:none; padding:11px 20px; border-radius:100px; font-weight:600; font-size:0.88rem; transition:background .2s, transform .15s;}
   .btn:hover{background:var(--forest-deep); transform:translateY(-1px);}
@@ -85,7 +89,7 @@
   .stat-card .ic{position:absolute; right:14px; bottom:12px; opacity:.14; color:var(--forest);}
 
   .view{display:none;}
-  .view.active{display:block; animation:fadeIn .28s ease;}
+  .view.active{display:block; animation:fadeIn .28s ease; scroll-margin-top:20px;}
   @keyframes fadeIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
 
   /* ---------- Table publications ---------- */
@@ -176,7 +180,7 @@
     <div class="main">
       <div class="topbar">
         <div style="display:flex; align-items:center; gap:12px;">
-          <button class="sb-toggle" onclick="toggleSidebar(true)" aria-label="Ouvrir le menu">
+          <button class="sb-toggle" onclick="toggleSidebar(true)" aria-label="Ouvrir le menu" aria-expanded="false" id="sbToggleBtn">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
           </button>
           <div>
@@ -334,7 +338,20 @@
     if(open === undefined) open = !sb.classList.contains('open');
     sb.classList.toggle('open', open);
     ov.classList.toggle('show', open);
+    if(open){ document.body.style.overflow = 'hidden'; } else { document.body.style.overflow = ''; }
   }
+  // ESC : ferme la barre latérale mobile
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      var sb = document.getElementById('sidebar');
+      if(sb && sb.classList.contains('open')){ toggleSidebar(false); }
+    }
+  });
+  // Autofocus sur le champ email de login
+  window.addEventListener('DOMContentLoaded', function(){
+    var le = document.getElementById('loginEmail');
+    if(le) le.focus();
+  });
 
   auth.onAuthStateChanged(function(user){
     if(user){
@@ -564,6 +581,15 @@
   }
 
   function reloadData(){ loadArticlesAdmin(); loadSubscribers(); loadContacts(); }
+
+  // Met à jour aria-expanded du bouton hamburger selon l'état de la sidebar
+  var _origToggle = toggleSidebar;
+  toggleSidebar = function(open){
+    _origToggle(open);
+    var t = document.getElementById('sbToggleBtn');
+    var sb = document.getElementById('sidebar');
+    if(t && sb) t.setAttribute('aria-expanded', sb.classList.contains('open') ? 'true' : 'false');
+  };
 
   document.getElementById('loginPass').addEventListener('keydown', function(e){
     if(e.key === 'Enter') doLogin();
