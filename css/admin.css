@@ -128,3 +128,15 @@
   @media (prefers-reduced-motion: reduce){
     *{animation-duration:0.001ms !important; transition:none !important;}
   }
+
+/* ===== Correction : page trop large à cause des descriptions ===== */
+.art-row > div{ min-width:0; }
+.art-row h4{ overflow-wrap:anywhere; }
+.art-row .desc{
+  white-space:normal;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  overflow-wrap:anywhere;
+}
