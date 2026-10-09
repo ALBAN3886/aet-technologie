@@ -866,6 +866,77 @@ footer{background:var(--ink); color:rgba(251,250,246,0.78);}
   *,*::before,*::after{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition:none !important; scroll-behavior:auto !important;}
   .reveal{opacity:1; transform:none;}
 }
+
+/* ============================================================
+   AET — Animations UI (ajout)
+   ============================================================ */
+
+.reveal{
+  transition: opacity .7s cubic-bezier(.16,.84,.44,1), transform .7s cubic-bezier(.16,.84,.44,1);
+}
+
+.sol, .form-card, .art-card, .tech-cat, .price-card, .proj, .res-card{
+  transition: transform .4s cubic-bezier(.16,.84,.44,1), box-shadow .4s ease, border-color .4s ease;
+}
+.sol:hover, .form-card:hover, .art-card:hover, .tech-cat:hover, .price-card:hover, .proj:hover, .res-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(11,61,46,0.12);
+  border-color: var(--gold);
+}
+
+.btn{ transition: transform .25s ease, box-shadow .25s ease, background .25s ease; }
+.btn:hover{ transform: translateY(-2px); }
+.btn-gold:hover{ box-shadow: 0 8px 20px rgba(201,153,30,0.35); }
+
+.navmain a{ position: relative; padding-bottom: 4px; }
+.navmain a::after{
+  content:"";
+  position:absolute;
+  left:0; bottom:0;
+  width:0; height:2px;
+  background: var(--gold);
+  transition: width .3s cubic-bezier(.16,.84,.44,1);
+}
+.navmain a:hover::after{ width:100%; }
+
+.site-header{ transition: box-shadow .35s ease; }
+.site-header.scrolled{ box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+.tagline-bar{ transition: max-height .35s ease, opacity .35s ease, padding .35s ease; overflow:hidden; max-height:80px; }
+.site-header.scrolled .tagline-bar{ max-height:0; padding-top:0; padding-bottom:0; opacity:0; }
+
+.hero-eyebrow, .hero-headline, .hero-sub, .hero-lead, .hero-ctas, .hero-meta{
+  opacity:0;
+  transform: translateY(18px);
+  animation: heroIn .8s cubic-bezier(.16,.84,.44,1) forwards;
+}
+.hero-eyebrow{ animation-delay:.05s; }
+.hero-headline{ animation-delay:.15s; }
+.hero-sub{ animation-delay:.25s; }
+.hero-lead{ animation-delay:.35s; }
+.hero-ctas{ animation-delay:.45s; }
+.hero-meta{ animation-delay:.55s; }
+@keyframes heroIn{ to{ opacity:1; transform:none; } }
+
+.hero-side{
+  opacity:0;
+  transform: translateY(24px) scale(.98);
+  animation: heroIn .9s cubic-bezier(.16,.84,.44,1) forwards;
+  animation-delay:.3s;
+}
+
+.go-top{
+  opacity:0;
+  transform: translateY(12px) scale(.9);
+  pointer-events:none;
+  transition: opacity .35s ease, transform .35s ease;
+}
+.go-top.show{ opacity:1; transform:none; pointer-events:auto; }
+
+@media (prefers-reduced-motion: reduce){
+  .hero-eyebrow, .hero-headline, .hero-sub, .hero-lead, .hero-ctas, .hero-meta, .hero-side{
+    animation:none !important; opacity:1 !important; transform:none !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -1768,6 +1839,15 @@ footer{background:var(--ink); color:rgba(251,250,246,0.78);}
     if(window.scrollY > 600){ goTop.classList.add('show'); } else { goTop.classList.remove('show'); }
   });
   goTop.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+
+  // Header sticky intelligent (animations UI)
+  const siteHeader = document.querySelector('.site-header');
+  function handleHeaderScroll(){
+    if(window.scrollY > 40){ siteHeader.classList.add('scrolled'); }
+    else { siteHeader.classList.remove('scrolled'); }
+  }
+  window.addEventListener('scroll', handleHeaderScroll);
+  handleHeaderScroll();
 </script>
 
 </body>
