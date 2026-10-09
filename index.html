@@ -55,11 +55,12 @@
     <div class="navmain">
       <a href="#accueil">Accueil</a>
       <a href="#solutions">Solutions</a>
-      <a href="#formations">Formations</a>
       <a href="#projets">Projets</a>
+      <a href="#formations">Formations</a>
       <a href="#business">AET Business</a>
-      <a href="#actualites">Actualités</a>
+      <a href="#tarifs">Tarifs</a>
       <a href="#apropos">À propos</a>
+      <a href="#actualites">Actualités</a>
     </div>
     <div class="navright">
       <button class="btn btn-gold" onclick="openModal()" aria-label="Démarrer un projet">Démarrer un projet</button>
@@ -76,11 +77,12 @@
   </button>
   <a href="#accueil">Accueil</a>
   <a href="#solutions">Solutions</a>
-  <a href="#formations">Formations</a>
   <a href="#projets">Projets</a>
+  <a href="#formations">Formations</a>
   <a href="#business">AET Business</a>
-  <a href="#actualites">Actualités</a>
+  <a href="#tarifs">Tarifs</a>
   <a href="#apropos">À propos</a>
+  <a href="#actualites">Actualités</a>
   <button class="btn btn-gold" style="margin-top:24px;" onclick="closeMenu(); openModal();">Démarrer un projet</button>
 </div>
 
@@ -188,6 +190,53 @@
     </div>
   </section>
 
+  <!-- ================= PROJETS ================= -->
+  <section id="projets" class="block">
+    <div class="wrap">
+      <div class="section-head reveal" style="margin-bottom:32px;">
+        <div class="rule-tot">04 · Portfolio</div>
+        <div>
+          <div class="bullet-rule eyebrow"><span class="dot"></span> Projets AET</div>
+          <h2>Nos solutions prennent vie.</h2>
+          <p>Conçus, développés et déployés par AET Technology — la preuve que la méthode fonctionne.</p>
+        </div>
+      </div>
+      <div class="filters reveal" id="projFilters" role="toolbar" aria-label="Filtres des projets">
+        <button class="active" data-filter="all" aria-pressed="true">Tous</button>
+        <button data-filter="apps" aria-pressed="false">Applications</button>
+        <button data-filter="web" aria-pressed="false">Web</button>
+        <button data-filter="business" aria-pressed="false">Business</button>
+        <button data-filter="data" aria-pressed="false">Data</button>
+      </div>
+      <div class="proj-grid">
+        <article class="proj reveal" data-cat="apps data">
+          <div class="proj-img">
+            <span class="proj-cat">Application financière</span>
+            <img src="assets/monbudget.webp" alt="AET MonBudget — application de gestion de budget personnel" loading="lazy" decoding="async" width="720" height="1280">
+          </div>
+          <div class="proj-body">
+            <h3>AET MonBudget</h3>
+            <p>Gestion de budget personnel pensée pour les salariés togolais : revenus, dépenses, épargne, multi-devises.</p>
+            <div class="techs"><span>JavaScript</span><span>Firebase</span><span>Android</span></div>
+            <a class="btn btn-forest" href="https://alban3886.github.io/togosheets-pro/" target="_blank" rel="noopener">Voir le projet →</a>
+          </div>
+        </article>
+        <article class="proj reveal d1" data-cat="web business">
+          <div class="proj-img">
+            <span class="proj-cat">Marketplace</span>
+            <img src="assets/togosheets.webp" alt="TogoSheets Pro — marketplace des boutiques en ligne togolaises" loading="lazy" decoding="async" width="960" height="540">
+          </div>
+          <div class="proj-body">
+            <h3>TogoSheets Pro</h3>
+            <p>Une vitrine publique regroupant les boutiques en ligne créées par les entrepreneurs formés chez AET.</p>
+            <div class="techs"><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
+            <a class="btn btn-forest" href="https://alban3886.github.io/togosheets-pro/public.html" target="_blank" rel="noopener">Voir la boutique →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= POURQUOI ================= -->
   <section id="pourquoi" class="block">
     <div class="wrap">
@@ -213,6 +262,27 @@
           </ul>
           <a class="btn btn-forest" href="#contact">Découvrir AET Technology</a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NOTRE MÉTHODE ================= -->
+  <section id="methode" class="block" style="background:var(--paper-2);">
+    <div class="wrap">
+      <div class="section-head reveal" style="margin-bottom:36px;">
+        <div class="rule-tot">03 · Notre processus</div>
+        <div>
+          <div class="bullet-rule eyebrow"><span class="dot"></span> Notre méthode</div>
+          <h2>Comment nous travaillons avec vous.</h2>
+          <p>Un processus clair, du premier échange jusqu'au suivi après livraison.</p>
+        </div>
+      </div>
+      <div class="path">
+        <div class="path-step reveal"><div class="n">01 / Comprendre</div><h3>Comprendre</h3><p>Nous analysons votre besoin, votre contexte et vos objectifs réels.</p></div>
+        <div class="path-step reveal d1"><div class="n">02 / Concevoir</div><h3>Concevoir</h3><p>Nous définissons ensemble la solution la mieux adaptée, sans complexité inutile.</p></div>
+        <div class="path-step reveal d2"><div class="n">03 / Développer</div><h3>Développer</h3><p>Nous transformons l'idée en un produit fonctionnel, testé et fiable.</p></div>
+        <div class="path-step reveal d3"><div class="n">04 / Déployer</div><h3>Déployer</h3><p>Mise en ligne, publication ou installation, avec accompagnement pas à pas.</p></div>
+        <div class="path-step reveal d4"><div class="n">05 / Accompagner</div><h3>Accompagner</h3><p>Nous assurons le suivi, la maintenance et les évolutions après livraison.</p></div>
       </div>
     </div>
   </section>
@@ -284,74 +354,6 @@
     </div>
   </section>
 
-  <!-- ================= NOTRE MÉTHODE ================= -->
-  <section id="methode" class="block" style="background:var(--paper-2);">
-    <div class="wrap">
-      <div class="section-head reveal" style="margin-bottom:36px;">
-        <div class="rule-tot">03 · Notre processus</div>
-        <div>
-          <div class="bullet-rule eyebrow"><span class="dot"></span> Notre méthode</div>
-          <h2>Comment nous travaillons avec vous.</h2>
-          <p>Un processus clair, du premier échange jusqu'au suivi après livraison.</p>
-        </div>
-      </div>
-      <div class="path">
-        <div class="path-step reveal"><div class="n">01 / Comprendre</div><h3>Comprendre</h3><p>Nous analysons votre besoin, votre contexte et vos objectifs réels.</p></div>
-        <div class="path-step reveal d1"><div class="n">02 / Concevoir</div><h3>Concevoir</h3><p>Nous définissons ensemble la solution la mieux adaptée, sans complexité inutile.</p></div>
-        <div class="path-step reveal d2"><div class="n">03 / Développer</div><h3>Développer</h3><p>Nous transformons l'idée en un produit fonctionnel, testé et fiable.</p></div>
-        <div class="path-step reveal d3"><div class="n">04 / Déployer</div><h3>Déployer</h3><p>Mise en ligne, publication ou installation, avec accompagnement pas à pas.</p></div>
-        <div class="path-step reveal d4"><div class="n">05 / Accompagner</div><h3>Accompagner</h3><p>Nous assurons le suivi, la maintenance et les évolutions après livraison.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= PROJETS ================= -->
-  <section id="projets" class="block">
-    <div class="wrap">
-      <div class="section-head reveal" style="margin-bottom:32px;">
-        <div class="rule-tot">04 · Portfolio</div>
-        <div>
-          <div class="bullet-rule eyebrow"><span class="dot"></span> Projets AET</div>
-          <h2>Nos solutions prennent vie.</h2>
-          <p>Conçus, développés et déployés par AET Technology — la preuve que la méthode fonctionne.</p>
-        </div>
-      </div>
-      <div class="filters reveal" id="projFilters" role="toolbar" aria-label="Filtres des projets">
-        <button class="active" data-filter="all" aria-pressed="true">Tous</button>
-        <button data-filter="apps" aria-pressed="false">Applications</button>
-        <button data-filter="web" aria-pressed="false">Web</button>
-        <button data-filter="business" aria-pressed="false">Business</button>
-        <button data-filter="data" aria-pressed="false">Data</button>
-      </div>
-      <div class="proj-grid">
-        <article class="proj reveal" data-cat="apps data">
-          <div class="proj-img">
-            <span class="proj-cat">Application financière</span>
-            <img src="assets/monbudget.webp" alt="AET MonBudget — application de gestion de budget personnel" loading="lazy" decoding="async" width="720" height="1280">
-          </div>
-          <div class="proj-body">
-            <h3>AET MonBudget</h3>
-            <p>Gestion de budget personnel pensée pour les salariés togolais : revenus, dépenses, épargne, multi-devises.</p>
-            <div class="techs"><span>JavaScript</span><span>Firebase</span><span>Android</span></div>
-            <a class="btn btn-forest" href="https://alban3886.github.io/togosheets-pro/" target="_blank" rel="noopener">Voir le projet →</a>
-          </div>
-        </article>
-        <article class="proj reveal d1" data-cat="web business">
-          <div class="proj-img">
-            <span class="proj-cat">Marketplace</span>
-            <img src="assets/togosheets.webp" alt="TogoSheets Pro — marketplace des boutiques en ligne togolaises" loading="lazy" decoding="async" width="960" height="540">
-          </div>
-          <div class="proj-body">
-            <h3>TogoSheets Pro</h3>
-            <p>Une vitrine publique regroupant les boutiques en ligne créées par les entrepreneurs formés chez AET.</p>
-            <div class="techs"><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
-            <a class="btn btn-forest" href="https://alban3886.github.io/togosheets-pro/public.html" target="_blank" rel="noopener">Voir la boutique →</a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
   <!-- ================= AET BUSINESS ================= -->
   <section id="business" class="block bg-ink">
     <div class="wrap">
@@ -382,6 +384,97 @@
           </div>
           <p class="biz-visual-c cap">★ Données de démonstration — ventes, stocks et statistiques d'exemple.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TARIFS ================= -->
+  <section id="tarifs" class="block">
+    <div class="wrap">
+      <div class="section-head reveal" style="margin-bottom:32px;">
+        <div class="rule-tot">09 · Tarifs</div>
+        <div>
+          <div class="bullet-rule eyebrow"><span class="dot"></span> Grille tarifaire</div>
+          <h2>Des prix pensés pour le marché togolais.</h2>
+          <p>Paiement en espèces, Flooz ou T-Money — sans frais cachés.</p>
+        </div>
+      </div>
+      <div class="price-grid">
+        <div class="price-card reveal">
+          <div class="plan">Découverte</div>
+          <div class="amt">25 000 <small>FCFA</small></div>
+          <p class="desc">Les fondamentaux du web, en groupe.</p>
+          <ul>
+            <li>4 modules essentiels</li>
+            <li>Support de cours inclus</li>
+            <li>Groupe de 8 à 12 personnes</li>
+          </ul>
+          <button class="btn btn-ghost" onclick="openModalWith('Formation Découverte (25 000 FCFA)')">Choisir cette formule</button>
+        </div>
+        <div class="price-card featured reveal d1">
+          <div class="plan">Intensif</div>
+          <div class="amt">60 000 <small>FCFA</small></div>
+          <p class="desc">Formation individuelle avec projet final publié.</p>
+          <ul>
+            <li>Suivi individuel</li>
+            <li>Projet réel déployé en ligne</li>
+            <li>Aide à la publication Store</li>
+          </ul>
+          <button class="btn btn-gold" onclick="openModalWith('Formation Intensive (60 000 FCFA)')">Choisir cette formule</button>
+        </div>
+        <div class="price-card reveal d2">
+          <div class="plan">Sur mesure</div>
+          <div class="amt">Devis</div>
+          <p class="desc">Développement complet de ton application.</p>
+          <ul>
+            <li>Cahier des charges</li>
+            <li>Développement &amp; tests</li>
+            <li>Mise en ligne &amp; maintenance</li>
+          </ul>
+          <button class="btn btn-ghost" onclick="openModalWith('Développement sur mesure (devis)')">Choisir cette formule</button>
+        </div>
+      </div>
+      <p class="price-note reveal">💬 Les tarifs peuvent varier selon la formule choisie et le nombre de participants. Contacte-nous sur WhatsApp pour un devis précis.</p>
+    </div>
+  </section>
+
+  <!-- ================= À PROPOS ================= -->
+  <section id="apropos" class="block" style="background:var(--paper-2);">
+    <div class="wrap-narrow">
+      <div class="section-head reveal" style="margin-bottom:36px;">
+        <div class="rule-tot">06 · À propos</div>
+        <div>
+          <div class="bullet-rule eyebrow"><span class="dot"></span> L'histoire AET</div>
+          <h2>Une initiative technologique togolaise.</h2>
+          <p>AET Technology (Alban Eloh Technologie) est une initiative technologique orientée vers la création de solutions numériques modernes, accessibles et adaptées aux besoins des particuliers, entrepreneurs et entreprises.</p>
+        </div>
+      </div>
+      <div class="row3 reveal" style="border:none;">
+        <div style="padding:28px 24px; background:var(--paper); border-right:1px solid var(--rule);">
+          <span class="num" style="display:block;font-family:var(--mono);font-size:0.68rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;font-weight:600;">Notre histoire</span>
+          <h3 style="font-family:var(--serif);font-size:1.32rem;font-weight:600;margin-top:10px;line-height:1.2;">D'où nous venons.</h3>
+          <p style="font-size:0.95rem;color:var(--text);margin-top:12px;line-height:1.6;">AET Technology est né à Lomé de la volonté de bâtir des solutions numériques utiles, accessibles et alignées avec les réalités du marché togolais.</p>
+        </div>
+        <div style="padding:28px 24px; background:var(--paper); border-right:1px solid var(--rule);">
+          <span class="num" style="display:block;font-family:var(--mono);font-size:0.68rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;font-weight:600;">Notre vision</span>
+          <h3 style="font-family:var(--serif);font-size:1.32rem;font-weight:600;margin-top:10px;line-height:1.2;">Vers où nous allons.</h3>
+          <p style="font-size:0.95rem;color:var(--text);margin-top:12px;line-height:1.6;">Rendre la technologie plus accessible pour tous, à Lomé et au-delà.</p>
+        </div>
+        <div style="padding:28px 24px; background:var(--paper);">
+          <span class="num" style="display:block;font-family:var(--mono);font-size:0.68rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;font-weight:600;">Notre mission</span>
+          <h3 style="font-family:var(--serif);font-size:1.32rem;font-weight:600;margin-top:10px;line-height:1.2;">Ce que nous faisons.</h3>
+          <p style="font-size:0.95rem;color:var(--text);margin-top:12px;line-height:1.6;">Créer des solutions numériques utiles et former les talents numériques de demain.</p>
+        </div>
+      </div>
+      <div style="margin-top:36px;">
+        <div class="bullet-rule eyebrow"><span class="dot"></span> Nos valeurs</div>
+        <ul class="why-list" style="grid-template-columns:repeat(5,1fr); margin-top:8px;">
+          <li>Innovation</li>
+          <li>Accessibilité</li>
+          <li>Pratique</li>
+          <li>Accompagnement</li>
+          <li>Fiabilité</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -429,47 +522,6 @@
             <li>IA <small>Intelligence artificielle</small></li>
           </ul>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= À PROPOS ================= -->
-  <section id="apropos" class="block" style="background:var(--paper-2);">
-    <div class="wrap-narrow">
-      <div class="section-head reveal" style="margin-bottom:36px;">
-        <div class="rule-tot">06 · À propos</div>
-        <div>
-          <div class="bullet-rule eyebrow"><span class="dot"></span> L'histoire AET</div>
-          <h2>Une initiative technologique togolaise.</h2>
-          <p>AET Technology (Alban Eloh Technologie) est une initiative technologique orientée vers la création de solutions numériques modernes, accessibles et adaptées aux besoins des particuliers, entrepreneurs et entreprises.</p>
-        </div>
-      </div>
-      <div class="row3 reveal" style="border:none;">
-        <div style="padding:28px 24px; background:var(--paper); border-right:1px solid var(--rule);">
-          <span class="num" style="display:block;font-family:var(--mono);font-size:0.68rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;font-weight:600;">Notre histoire</span>
-          <h3 style="font-family:var(--serif);font-size:1.32rem;font-weight:600;margin-top:10px;line-height:1.2;">D'où nous venons.</h3>
-          <p style="font-size:0.95rem;color:var(--text);margin-top:12px;line-height:1.6;">AET Technology est né à Lomé de la volonté de bâtir des solutions numériques utiles, accessibles et alignées avec les réalités du marché togolais.</p>
-        </div>
-        <div style="padding:28px 24px; background:var(--paper); border-right:1px solid var(--rule);">
-          <span class="num" style="display:block;font-family:var(--mono);font-size:0.68rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;font-weight:600;">Notre vision</span>
-          <h3 style="font-family:var(--serif);font-size:1.32rem;font-weight:600;margin-top:10px;line-height:1.2;">Vers où nous allons.</h3>
-          <p style="font-size:0.95rem;color:var(--text);margin-top:12px;line-height:1.6;">Rendre la technologie plus accessible pour tous, à Lomé et au-delà.</p>
-        </div>
-        <div style="padding:28px 24px; background:var(--paper);">
-          <span class="num" style="display:block;font-family:var(--mono);font-size:0.68rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;font-weight:600;">Notre mission</span>
-          <h3 style="font-family:var(--serif);font-size:1.32rem;font-weight:600;margin-top:10px;line-height:1.2;">Ce que nous faisons.</h3>
-          <p style="font-size:0.95rem;color:var(--text);margin-top:12px;line-height:1.6;">Créer des solutions numériques utiles et former les talents numériques de demain.</p>
-        </div>
-      </div>
-      <div style="margin-top:36px;">
-        <div class="bullet-rule eyebrow"><span class="dot"></span> Nos valeurs</div>
-        <ul class="why-list" style="grid-template-columns:repeat(5,1fr); margin-top:8px;">
-          <li>Innovation</li>
-          <li>Accessibilité</li>
-          <li>Pratique</li>
-          <li>Accompagnement</li>
-          <li>Fiabilité</li>
-        </ul>
       </div>
     </div>
   </section>
@@ -522,56 +574,6 @@
           </div>
         </article>
       </div>
-    </div>
-  </section>
-
-  <!-- ================= TARIFS ================= -->
-  <section id="tarifs" class="block">
-    <div class="wrap">
-      <div class="section-head reveal" style="margin-bottom:32px;">
-        <div class="rule-tot">09 · Tarifs</div>
-        <div>
-          <div class="bullet-rule eyebrow"><span class="dot"></span> Grille tarifaire</div>
-          <h2>Des prix pensés pour le marché togolais.</h2>
-          <p>Paiement en espèces, Flooz ou T-Money — sans frais cachés.</p>
-        </div>
-      </div>
-      <div class="price-grid">
-        <div class="price-card reveal">
-          <div class="plan">Découverte</div>
-          <div class="amt">25 000 <small>FCFA</small></div>
-          <p class="desc">Les fondamentaux du web, en groupe.</p>
-          <ul>
-            <li>4 modules essentiels</li>
-            <li>Support de cours inclus</li>
-            <li>Groupe de 8 à 12 personnes</li>
-          </ul>
-          <button class="btn btn-ghost" onclick="openModalWith('Formation Découverte (25 000 FCFA)')">Choisir cette formule</button>
-        </div>
-        <div class="price-card featured reveal d1">
-          <div class="plan">Intensif</div>
-          <div class="amt">60 000 <small>FCFA</small></div>
-          <p class="desc">Formation individuelle avec projet final publié.</p>
-          <ul>
-            <li>Suivi individuel</li>
-            <li>Projet réel déployé en ligne</li>
-            <li>Aide à la publication Store</li>
-          </ul>
-          <button class="btn btn-gold" onclick="openModalWith('Formation Intensive (60 000 FCFA)')">Choisir cette formule</button>
-        </div>
-        <div class="price-card reveal d2">
-          <div class="plan">Sur mesure</div>
-          <div class="amt">Devis</div>
-          <p class="desc">Développement complet de ton application.</p>
-          <ul>
-            <li>Cahier des charges</li>
-            <li>Développement &amp; tests</li>
-            <li>Mise en ligne &amp; maintenance</li>
-          </ul>
-          <button class="btn btn-ghost" onclick="openModalWith('Développement sur mesure (devis)')">Choisir cette formule</button>
-        </div>
-      </div>
-      <p class="price-note reveal">💬 Les tarifs peuvent varier selon la formule choisie et le nombre de participants. Contacte-nous sur WhatsApp pour un devis précis.</p>
     </div>
   </section>
 
