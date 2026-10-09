@@ -920,3 +920,10 @@ footer{background:var(--ink); color:rgba(251,250,246,0.78);}
   cursor:pointer;
 }
 .art-more:hover{ color:var(--gold); }
+
+/* ===== Footer : place pour le bouton remonter (mobile) ===== */
+@media (max-width:900px){
+  .foot-bottom{
+    padding-bottom:120px;
+  }
+}
