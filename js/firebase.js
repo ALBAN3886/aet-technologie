@@ -81,7 +81,7 @@
           html += '</div>';
           if(a.category){ html += '<div class="art-cat">' + escapeHtml(a.category) + '</div>'; }
           html += '<h3>' + escapeHtml(a.title) + '</h3>';
-          html += '<p style="white-space:pre-line;">' + linkify(a.description) + '</p>';
+          html += '<p class="art-desc" style="white-space:pre-line;">' + linkify(a.description) + '</p>';
           if(a.premium && !unlocked){
             html += '<div class="art-locked" onclick="openPremiumModal(\'' + doc.id + '\')">🔒 Inscris-toi (gratuit) pour lire &amp; accéder au lien</div>';
           } else if(a.link){

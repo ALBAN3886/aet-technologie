@@ -898,3 +898,25 @@ footer{background:var(--ink); color:rgba(251,250,246,0.78);}
     animation:none !important; opacity:1 !important; transform:none !important;
   }
 }
+
+/* ===== Articles : "Lire la suite" ===== */
+.art-desc{
+  display:-webkit-box;
+  -webkit-line-clamp:4;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.art-desc.open{
+  display:block;
+  -webkit-line-clamp:unset;
+}
+.art-more{
+  background:none; border:none; padding:0;
+  margin:4px 0 14px;
+  color:var(--forest);
+  font-family:var(--sans);
+  font-size:.9rem; font-weight:600;
+  text-decoration:underline;
+  cursor:pointer;
+}
+.art-more:hover{ color:var(--gold); }

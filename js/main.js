@@ -115,3 +115,27 @@
   }
   window.addEventListener('scroll', handleHeaderScroll);
   handleHeaderScroll();
+
+// ===== Articles : bouton "Lire la suite" =====
+(function(){
+  const grid = document.getElementById('artGrid');
+  if(!grid) return;
+  function addMoreButtons(){
+    grid.querySelectorAll('.art-desc').forEach(function(p){
+      if(p.dataset.more) return;
+      p.dataset.more = '1';
+      if(p.scrollHeight <= p.clientHeight + 2) return;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'art-more';
+      btn.textContent = 'Lire la suite ↓';
+      btn.addEventListener('click', function(){
+        const open = p.classList.toggle('open');
+        btn.textContent = open ? 'Réduire ↑' : 'Lire la suite ↓';
+      });
+      p.after(btn);
+    });
+  }
+  new MutationObserver(addMoreButtons).observe(grid, {childList:true});
+  addMoreButtons();
+})();
