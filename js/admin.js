@@ -92,7 +92,9 @@
     document.getElementById('formMsg').textContent = '';
   }
 
+  let isSaving = false;
   function saveArticle(){
+    if(isSaving) return;
     const id = document.getElementById('articleId').value;
     const title = document.getElementById('fTitle').value.trim();
     const description = document.getElementById('fDescription').value.trim();
@@ -109,6 +111,7 @@
       return;
     }
 
+    isSaving = true; msgEl.textContent = 'Enregistrement…'; msgEl.className = 'msg';
     const data = { title: title, description: description, category: category, link: link, image: image, premium: premium, published: published };
 
     let promise;
@@ -120,11 +123,13 @@
     }
 
     promise.then(function(){
+      isSaving = false;
       msgEl.textContent = "Enregistré ✓";
       msgEl.className = 'msg ok';
       resetForm();
       reloadData();
     }).catch(function(err){
+      isSaving = false;
       msgEl.textContent = "Erreur : " + err.message;
       msgEl.className = 'msg err';
     });
