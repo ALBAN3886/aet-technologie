@@ -30,12 +30,22 @@
     const message = document.getElementById('cMsg').value.trim();
     const msg = `Bonjour AET Technology, je m'appelle ${name} (tél: ${phone}${email ? ', email: '+email : ''}). Type de projet : ${type}. ${message}`;
 
+    var waUrl = 'https://wa.me/22899812072?text=' + encodeURIComponent(msg);
+    var btn = e.target.querySelector('button');
+    var oldTxt = btn ? btn.innerHTML : '';
+    if(btn){ btn.disabled = true; btn.textContent = 'Envoi en cours...'; }
+    var done = false;
+    function goWhatsApp(){
+      if(done) return;
+      done = true;
+      window.location.href = waUrl;
+      setTimeout(function(){ if(btn){ btn.disabled = false; btn.innerHTML = oldTxt; } }, 2000);
+    }
     db.collection('contacts').add({
       name: name, phone: phone, email: email, type: type, message: message,
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    }).catch(function(err){ console.error('Erreur enregistrement contact:', err); });
-
-    window.open('https://wa.me/22899812072?text=' + encodeURIComponent(msg), '_blank');
+    }).then(goWhatsApp).catch(function(err){ console.error('Erreur enregistrement contact:', err); goWhatsApp(); });
+    setTimeout(goWhatsApp, 5000);
   }
 
   // Menu mobile
