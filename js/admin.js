@@ -152,11 +152,11 @@
 
   function deleteArticle(id){
     if(!confirm('Supprimer définitivement cette publication ?')) return;
-    db.collection('articles').doc(id).delete().then(reloadData);
+    db.collection('articles').doc(id).delete().then(function(){ reloadData(); }).catch(function(e){ alert('Erreur : ' + e.code + ' - ' + e.message); });
   }
 
   function togglePublished(id, current){
-    db.collection('articles').doc(id).update({ published: !current }).then(reloadData);
+    db.collection('articles').doc(id).update({ published: !current }).then(reloadData).catch(function(e){ alert('Erreur : ' + e.message); });
   }
 
   function escapeHtml(str){
@@ -209,7 +209,7 @@
         return;
       }
       let html = '';
-      snap.forEach(function(doc){ html += rowHtml(doc.id, doc.data()); });
+      snap.forEach(function(doc){ html += rowHtml(doc, doc.data()); });
       list.innerHTML = html;
       list2.innerHTML = html;
     }).catch(function(err){
