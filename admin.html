@@ -101,6 +101,9 @@
           <label for="fImage">Image (optionnel)</label>
           <input id="fImage" type="url" placeholder="https://... (URL d'une image, ex: lien d'une image hébergée)">
           <p class="sub" style="margin-top:-10px;">Astuce : héberge ton image sur <a href="https://postimages.org" target="_blank" rel="noopener">postimages.org</a> ou <a href="https://imgur.com" target="_blank" rel="noopener">imgur.com</a> (gratuit), puis colle le lien direct ici.</p>
+          <label for="fFile">📷 Ou choisir une image dans la galerie</label>
+          <input id="fFile" type="file" accept="image/*" onchange="pickImage(this)" style="margin:6px 0 10px;">
+          <img id="fPreview" alt="Aperçu" style="display:none; max-width:220px; border-radius:6px; margin:0 0 16px;">
           <div class="checkline">
             <input type="checkbox" id="fPremium"> <label for="fPremium">Contenu Premium (réservé aux inscrits)</label>
           </div>

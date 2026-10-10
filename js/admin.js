@@ -299,3 +299,32 @@
   document.getElementById('loginPass').addEventListener('keydown', function(e){
     if(e.key === 'Enter') doLogin();
   });
+
+// Choisir une image dans la galerie : on la réduit puis on la met dans le champ Image
+function pickImage(input){
+  var file = input.files && input.files[0];
+  if(file == null) return;
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var img = new Image();
+    img.onload = function(){
+      var max = 1000, w = img.width, h = img.height;
+      if(w > max || h > max){
+        if(w > h){ h = Math.round(h * max / w); w = max; }
+        else { w = Math.round(w * max / h); h = max; }
+      }
+      var canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      var ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
+      ctx.drawImage(img, 0, 0, w, h);
+      var data = canvas.toDataURL('image/jpeg', 0.7);
+      if(data.length > 900000){ alert('Image trop lourde, choisis-en une autre.'); return; }
+      document.getElementById('fImage').value = data;
+      var p = document.getElementById('fPreview');
+      p.src = data; p.style.display = 'block';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
