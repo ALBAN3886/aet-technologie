@@ -11,6 +11,29 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+.proj-img{background:none!important;height:auto!important;min-height:0!important;aspect-ratio:auto!important;padding:24px 24px 0!important;justify-content:flex-start!important;border:0!important}
+.proj-img::before,.proj-img::after{display:none!important}
+.proj-cat{display:none!important}
+.proj-img span[aria-hidden]{font-size:3.5rem!important}
+</style>
+<style>
+.proj-img .app-icon{position:static!important;inset:auto!important;width:96px!important;height:96px!important;object-fit:contain!important;border-radius:22px}
+.shots img{cursor:zoom-in}
+.lb{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92)}
+.lb[hidden]{display:none}
+.lb-track{display:flex;width:100%;height:100%;overflow-x:auto;scroll-snap-type:x mandatory}
+.lb-slide{flex:0 0 100%;height:100%;overflow:auto;display:flex;scroll-snap-align:center}
+.lb-slide img{margin:auto;max-width:94%;max-height:90%;border-radius:12px}
+.lb-slide img.z{max-width:none;max-height:none;width:200%}
+.lb-close{position:absolute;top:14px;right:14px;z-index:2;width:44px;height:44px;border-radius:50%;border:0;background:#fff;font-size:20px}
+.lb-hint{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:#fff;font-size:13px;opacity:.7}
+</style>
+<style>
+.app-icon{width:96px;height:96px;border-radius:22px;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.shots{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:16px;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+.shots img{flex:0 0 auto;height:260px;width:auto;border-radius:12px;border:1px solid var(--rule);scroll-snap-align:start}
+</style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7240153969986120" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -38,13 +61,19 @@
         <article class="proj">
           <div class="proj-img" style="display:flex; align-items:center; justify-content:center;">
             <span class="proj-cat">Finances</span>
-            <span style="font-size:4.5rem; line-height:1;" aria-hidden="true">💰</span>
+            <img class="app-icon" src="assets/store/monbudget-icone.webp" alt="Icône AET MonBudget" width="96" height="96">
           </div>
           <div class="proj-body">
             <h3>AET MonBudget</h3>
             <p>Gérez votre budget personnel : revenus, dépenses, épargne et plusieurs devises, directement sur votre téléphone.</p>
             <div class="techs"><span>Android</span><span>Firebase</span></div>
             <a class="btn btn-gold" href="https://github.com/ALBAN3886/aet-monbudget-android/releases/latest/download/app-release.apk">⬇ Télécharger l'APK</a>
+            <div class="shots" aria-label="Captures d'écran AET MonBudget">
+              <img src="assets/store/monbudget-1.webp" alt="Tableau de bord" loading="lazy" width="720" height="1337">
+              <img src="assets/store/monbudget-2.webp" alt="Caisse / Point de vente" loading="lazy" width="720" height="1432">
+              <img src="assets/store/monbudget-3.webp" alt="Page Commerce" loading="lazy" width="720" height="1432">
+              <img src="assets/store/monbudget-4.webp" alt="Boutique publique" loading="lazy" width="720" height="1432">
+            </div>
           </div>
         </article>
 
@@ -96,5 +125,34 @@
   </div>
 </footer>
 
+<div id="lb" class="lb" hidden>
+  <button class="lb-close" aria-label="Fermer">✕</button>
+  <div class="lb-track"></div>
+  <div class="lb-hint">Glissez pour changer · Touchez pour zoomer</div>
+</div>
+<script>
+(function(){
+  var lb=document.getElementById('lb'), track=lb.querySelector('.lb-track');
+  document.querySelectorAll('.shots').forEach(function(g){
+    var imgs=g.querySelectorAll('img');
+    imgs.forEach(function(img,i){
+      img.addEventListener('click',function(){
+        track.innerHTML='';
+        imgs.forEach(function(s){
+          var d=document.createElement('div'); d.className='lb-slide';
+          var c=document.createElement('img'); c.src=s.src; c.alt=s.alt;
+          c.addEventListener('click',function(){c.classList.toggle('z');});
+          d.appendChild(c); track.appendChild(d);
+        });
+        lb.hidden=false; document.body.style.overflow='hidden';
+        track.scrollLeft=track.clientWidth*i;
+      });
+    });
+  });
+  function closeLb(){lb.hidden=true; document.body.style.overflow=''; track.innerHTML='';}
+  lb.querySelector('.lb-close').addEventListener('click',closeLb);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb();});
+})();
+</script>
 </body>
 </html>
