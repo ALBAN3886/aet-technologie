@@ -12,6 +12,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <style>
+ol.steps{list-style:decimal!important;padding-left:24px!important}
+ol.steps li{display:list-item!important;list-style:decimal!important;margin-bottom:6px}
+ol.steps li::marker{color:var(--gold);font-weight:700}
+</style>
+<style>
 .proj-img{background:none!important;height:auto!important;min-height:0!important;aspect-ratio:auto!important;padding:24px 24px 0!important;justify-content:flex-start!important;border:0!important}
 .proj-img::before,.proj-img::after{display:none!important}
 .proj-cat{display:none!important}
@@ -67,7 +72,7 @@
             <h3>AET MonBudget</h3>
             <p>Gérez votre budget personnel : revenus, dépenses, épargne et plusieurs devises, directement sur votre téléphone.</p>
             <div class="techs"><span>Android</span><span>Firebase</span></div>
-            <a class="btn btn-gold" href="https://github.com/ALBAN3886/aet-monbudget-android/releases/latest/download/app-release.apk">⬇ Télécharger l'APK</a>
+            <a class="btn btn-gold" href="https://github.com/ALBAN3886/aet-monbudget-android/releases/latest/download/app-release.apk">↓ Télécharger l'APK</a>
             <div class="shots" aria-label="Captures d'écran AET MonBudget">
               <img src="assets/store/monbudget-1.webp" alt="Tableau de bord" loading="lazy" width="720" height="1337">
               <img src="assets/store/monbudget-2.webp" alt="Caisse / Point de vente" loading="lazy" width="720" height="1432">
@@ -86,7 +91,7 @@
             <h3>TogoSheets Marketplace</h3>
             <p>Retrouvez les boutiques en ligne des entrepreneurs togolais, réunies dans une seule application.</p>
             <div class="techs"><span>Android</span><span>Marketplace</span></div>
-            <a class="btn btn-gold" href="https://github.com/ALBAN3886/togosheets-marketplace-android/releases/latest/download/app-release.apk">⬇ Télécharger l'APK</a>
+            <a class="btn btn-gold" href="https://github.com/ALBAN3886/togosheets-marketplace-android/releases/latest/download/app-release.apk">↓ Télécharger l'APK</a>
             <div class="shots" aria-label="Captures d'écran TogoSheets Marketplace">
               <img src="assets/store/togosheets-1.webp" alt="Liste des boutiques" loading="lazy" width="720" height="1436">
               <img src="assets/store/togosheets-2.webp" alt="Accueil d'une boutique" loading="lazy" width="720" height="1436">
@@ -105,7 +110,7 @@
             <h3>AET IPTV</h3>
             <p>Regardez des chaînes de télévision gratuites et légales en direct, depuis votre téléphone.</p>
             <div class="techs"><span>Android</span><span>Direct</span></div>
-            <a class="btn btn-gold" href="https://github.com/ALBAN3886/alban-eloh-tv-android/releases/latest/download/app-debug.apk">⬇ Télécharger l'APK</a>
+            <a class="btn btn-gold" href="https://github.com/ALBAN3886/alban-eloh-tv-android/releases/latest/download/app-debug.apk">↓ Télécharger l'APK</a>
             <div class="shots" aria-label="Captures d'écran AET IPTV">
               <img src="assets/store/iptv-1.webp" alt="Liste des chaînes" loading="lazy" width="720" height="1436">
               <img src="assets/store/iptv-2.webp" alt="Chaînes togolaises" loading="lazy" width="720" height="1436">
@@ -118,7 +123,7 @@
 
       <div style="margin-top:40px; padding:24px; background:var(--paper-2); border:1px solid var(--rule);">
         <h3 style="font-family:'Fraunces',serif; color:var(--forest); margin:0 0 12px;">Comment installer une application ?</h3>
-        <ol style="margin:0; padding-left:20px; line-height:1.8;">
+        <ol class="steps" style="margin:0; padding-left:20px; line-height:1.8;">
           <li>Touchez <b>« Télécharger l'APK »</b> et attendez la fin du téléchargement.</li>
           <li>Ouvrez le fichier téléchargé (dans vos notifications ou le dossier Téléchargements).</li>
           <li>Si Android le demande, autorisez l'installation depuis cette source (« sources inconnues »).</li>
